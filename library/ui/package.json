@@ -1,5 +1,5 @@
 {
-  "name": "pc-finance",
+  "name": "pc-library",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -27,8 +27,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.10"
   }
 }

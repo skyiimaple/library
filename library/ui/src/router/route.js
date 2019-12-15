@@ -5,16 +5,14 @@ const allRouter = [{
 },
 {
   path: '/',
-  name: 'I',
-  redirect: '/index',
-  component: () => import('@/views/Main'),
-  children: [{
-    path: '/index',
-    name: 'info',
-    component: () => import('@/views/info')
-  }]
+  name: 'Main',
+  redirect: '/home',
+  component: () => import('@/views/Main')
+},
+{
+  path: '/home',
+  name: 'info',
+  component: () => import('@/views//home/info')
 }
 ]
-export const routes = [
-  ...allRouter
-]
+export const routes = [...allRouter]

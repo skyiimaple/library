@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>123</h1>
-  </div>
+  <link-actice>
+    <router-view></router-view>
+  </link-actice>
 </template>
 
 <script>
@@ -10,4 +10,4 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped ></style>
