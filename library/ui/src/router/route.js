@@ -7,12 +7,14 @@ const allRouter = [{
   path: '/',
   name: 'Main',
   redirect: '/home',
-  component: () => import('@/views/Main')
-},
-{
-  path: '/home',
-  name: 'info',
-  component: () => import('@/views//home/info')
+  component: () => import('@/views/Main'),
+  children: [
+    {
+      path: '/home',
+      name: 'info',
+      component: () => import('@/views/home/info')
+    }
+  ]
 }
 ]
 export const routes = [...allRouter]
