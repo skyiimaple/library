@@ -4,14 +4,23 @@
       <div class="myleft">
         我的图书中心
       </div>
-      <div class="myright">
+      <div class="myright" v-if="myname==='首页'">
+        <ul >
+          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{active:myname===item.name}">
+            <div v-if="item.name!=='首页'">{{item.name}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="myright" v-else>
         <ul>
-          <li v-for="(item,index) in titleList" :key="index" @click="myname=item.name" :class="{active:myname===item.name}">{{item.name}}</li>
+          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{active:myname===item.name}">
+            <div >{{item.name}}</div>
+          </li>
         </ul>
       </div>
     </div>
     <div class="searchContainer">
-      <div class="search">
+      <div class="search" v-if="myname==='首页'">
         <span class="title">一本书可以看到一个世界</span>
         <div class="searchType" >
           <div v-for="(item,i) in ['按作者','按书名','按分类']" :key="i"  @click="current=i">{{item}}</div>
@@ -21,23 +30,38 @@
           <a-input-search placeholder="你想看的世界" @search="onSearch" enterButton style="width:40%"/>
         </div>
       </div>
+      <div class="search2" v-else>
+        <span class="title">{{myname}}</span>
+        <div class="searchType" >
+          <div v-for="(item,i) in ['按作者','按书名','按分类']" :key="i"  @click="current=i">{{item}}</div>
+          <div class="moveline"  :style="{left:linewidth+'rem'}"></div>
+        </div>
+        <div>
+          <a-input-search placeholder="你想看的世界" @search="onSearch" enterButton style="width:40%"/>
+        </div>
+      </div>
     </div>
+    <login ref="login"></login>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'navTop',
+  components: {
+    login: () => import('@/views/login')
+  },
   data () {
     return {
       current: 0,
       myname: '首页',
       titleList: [
-        { name: '首页' },
-        { name: '电子图书' },
-        { name: '年度榜单' },
-        { name: '书店' },
-        { name: '个人中心' },
+        { name: '首页', path: 'home' },
+        { name: '电子图书', path: 'library' },
+        { name: '年度榜单', path: 'annualList' },
+        { name: '书店', path: 'bookShop' },
+        { name: '个人中心', path: 'person' },
         { name: '登录/注册' }
       ]
     }
@@ -51,8 +75,18 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setCurrMenu']),
     onSearch () {
 
+    },
+    clickSelect (val) {
+      this.myname = val.name
+      if (val.name === '登录/注册') {
+        this.$refs.login.openLogin()
+      } else {
+        this.$router.push('/' + val.path)
+      }
+      this.setCurrMenu(val)
     }
   }
 }
@@ -99,6 +133,9 @@ export default {
   padding: 20rem 6rem 20rem 13%;
   /* background-color: rgba(252,252,252,0.7); */
 }
+.search2{
+  padding: 8rem 6rem 8rem 13%;
+}
 .title{
   font-size: 4.8rem;
   font-weight: bold;
@@ -110,6 +147,7 @@ export default {
   margin-bottom: 2rem;
   position: relative;
   font-size: 2rem;
+  color: rgb(31, 32, 88);
 }
 .searchContainer .moveline{
   position: absolute;
@@ -142,5 +180,6 @@ export default {
 }
 .active{
   color: skyblue;
+  font-weight: 600;
 }
 </style>

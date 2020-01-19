@@ -34,4 +34,10 @@ html {
 .ant-card-hoverable:hover{
   box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3)!important;
 }
+.ant-modal-body {
+    padding: 0 !important;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
 </style>

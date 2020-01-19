@@ -8,6 +8,7 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import myUtils from '@/utils/index.js'
 import api from '@/utils/api.js'
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(Antd)
@@ -17,5 +18,6 @@ Vue.use(myUtils, {
 Vue.prototype.$api = api
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
