@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <div class="mytop">
+    <div class="mytop ">
       <div class="myleft">
         我的图书中心
       </div>
@@ -27,7 +27,7 @@
           <div class="moveline"  :style="{left:linewidth+'rem'}"></div>
         </div>
         <div>
-          <a-input-search placeholder="你想看的世界" @search="onSearch" enterButton style="width:40%"/>
+          <a-input-search placeholder="你想看的世界" @search="onSearch" size="large" enterButton style="width:40%"/>
         </div>
       </div>
       <div class="search2" v-else>
@@ -37,7 +37,7 @@
           <div class="moveline"  :style="{left:linewidth+'rem'}"></div>
         </div>
         <div>
-          <a-input-search placeholder="你想看的世界" @search="onSearch" enterButton style="width:40%"/>
+          <a-input-search placeholder="你想看的世界" @search="onSearch" size="large" enterButton style="width:40%"/>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@ export default {
   background-color: rgba(252,252,252,0.7);
   padding: 0 6rem;
   cursor: default;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 500;
 }
 .myleft {

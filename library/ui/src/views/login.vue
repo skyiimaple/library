@@ -1,17 +1,17 @@
 <template>
-    <a-modal v-model="visible" :title="Title"  :footer="null" :width="520" :maskClosable="false">
+    <a-modal v-model="visible" :title="Title"  :footer="null" :width="620" :maskClosable="false">
       <div class="content">
         <div class="myRow">
           <span class="name">用户名：</span>
-          <a-input class="input" v-model="userinfo.username" placeholder="请输入用户名" style="width:25rem"/>
+          <a-input class="input" v-model="userinfo.username" size="large" placeholder="请输入用户名" style="width:30rem"/>
         </div>
         <div class="myRow">
           <span class="name">密码：</span>
-          <a-input class="input" v-model="userinfo.password" placeholder="请输入密码" type="password" style="width:25rem"  />
+          <a-input class="input" v-model="userinfo.password" size="large" placeholder="请输入密码" type="password" style="width:30rem"  />
         </div>
         <div class="myRow">
           <span class="name">验证码：</span>
-          <a-input class="input" v-model="userinfo.safeword" placeholder="请输入验证码"  style="width:25rem" @keyup.enter="loginFn()" />
+          <a-input class="input" v-model="userinfo.safeword" size="large" placeholder="请输入验证码"  style="width:30rem" @keyup.enter="loginFn()" />
         </div>
         <div style="text-align:center">这里放验证码</div>
         <div class="myRow">
@@ -54,10 +54,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 6rem;
+  height: 8rem;
+  padding-right: 8rem;
 }
 .name{
-  width: 8rem;
+  width: 10rem;
   text-align: right;
 }
 .loginbtn{
