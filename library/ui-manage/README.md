@@ -1,4 +1,4 @@
-# pc-library
+# pc-manage
 
 ## Project setup
 ```
