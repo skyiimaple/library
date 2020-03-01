@@ -1,6 +1,6 @@
 # pc-library
 
-## Project setup
+## Project setup 先安装依赖
 ```
 npm install
 ```
