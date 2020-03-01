@@ -5,7 +5,7 @@
         <div style="width:100%;margin: 30px 0 18px 0;text-align: center;">
             <span style="font-family: 微软雅黑;font-weight: 400;font-style: normal;font-size: 21px;color: rgb(85, 85, 85);">图书管理后台登录</span>
         </div>
-        <div style="box-shadow: 0px 0px 8px rgba(202, 201, 201, 0.349019607843137);margin-top: 10px;padding: 35px 15px 60px 15px; ">
+        <div style="box-shadow: 0px 0px 8px rgba(202, 201, 201, 0.3);margin-top: 10px;padding: 35px 15px 60px 15px; ">
           <div style="margin-top: 15px;">
             <a-input placeholder="账号" v-model="userinfo.username" class="noBorder_input">
               <a-icon style="font-size: 20px;" slot="prefix" type="user" />

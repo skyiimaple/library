@@ -52,8 +52,8 @@ export default {
   },
   methods: {
     goTo (url) {
-        console.log('sss', url)
-        this.$router.push({ name: url })
+      console.log('sss', url)
+      this.$router.push({ name: url })
     }
   }
 }
