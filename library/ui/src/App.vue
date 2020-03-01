@@ -40,4 +40,7 @@ html {
     line-height: 1.5;
     word-wrap: break-word;
 }
+.myflex{
+    display: flex;
+}
 </style>

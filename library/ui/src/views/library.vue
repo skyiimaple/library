@@ -1,19 +1,35 @@
 <template>
 <div class="mainContainer">
     <div class="selectTitle">
-        <div class="selectCard">
-            <div class="name">分类:  {{  type1}}</div>
+        <div class="selectCard2 myflex">
+            <div class="name2">分类:</div>
             <div class="list">
-                <a-radio-group @change="onChange" v-model="type1" buttonStyle="solid">
-                    <a-radio-button :value="item.name" v-for="item in cateData" :key="item.id" style="margin:0.5rem">{{item.name}}</a-radio-button>
+                <a-select v-model="type1" style="width: 320px" @change="onChange">
+                    <a-select-option :value="item.id" v-for="item in cateData" :key="item.id">{{item.name}}</a-select-option>
+                </a-select>
+            </div>
+        </div>
+        <div class="selectCard2 myflex">
+            <div class="name2">地区:</div>
+            <div class="list2">
+                <a-radio-group @change="onChange2" v-model="type2" buttonStyle="solid">
+                    <a-radio-button :value="item.id" v-for="item in tagsData" :key="item.id" style="margin:0.5rem">{{item.name}}</a-radio-button>
                 </a-radio-group>
             </div>
         </div>
-        <div class="selectCard">
-            <div class="name">标签:  {{  type2}}</div>
-            <div class="list">
-                <a-radio-group @change="onChange2" v-model="type2" buttonStyle="solid">
-                    <a-radio-button :value="item.name" v-for="item in tagsData" :key="item.cid" style="margin:0.5rem">{{item.name}}</a-radio-button>
+        <div class="selectCard2 myflex">
+            <div class="name2">进度:</div>
+            <div class="list2">
+                <a-radio-group @change="onChange2" v-model="type4" buttonStyle="solid">
+                    <a-radio-button :value="item.id" v-for="item in data3" :key="item.id" style="margin:0.5rem">{{item.name}}</a-radio-button>
+                </a-radio-group>
+            </div>
+        </div>
+        <div class="selectCard2 myflex">
+            <div class="name2">字母:</div>
+            <div class="list2">
+                <a-radio-group @change="onChange2" v-model="type5" buttonStyle="solid">
+                    <a-radio-button :value="index" v-for="(item,index) in 27" :key="index" style="margin:0.5rem">{{index===0?'全部':String.fromCharCode(item+63)}}</a-radio-button>
                 </a-radio-group>
             </div>
         </div>
@@ -45,10 +61,13 @@ export default {
   name: 'library',
   data () {
     return {
-      type1: null, // 分类
-      type2: null, // 标签
+      type1: 0, // 分类
+      type2: 1, // 地区
+      type4: 1, // 进度
+      type5: 0, // 字母
       type3: 'a', //
       cateData: [
+        { id: 0, name: '全部' },
         { id: 1, name: '小说' },
         { id: 2, name: '文学' },
         { id: 3, name: '人文科技' },
@@ -63,21 +82,17 @@ export default {
         { id: 12, name: '考试教育' },
         { id: 13, name: '杂志' }
       ],
-      // 表签应该是随着分类改变的
       tagsData: [
-        { cid: 1, name: '漫画' },
-        { cid: 2, name: '武侠' },
-        { cid: 3, name: '科幻' },
-        { cid: 4, name: '推理' },
-        { cid: 5, name: '韩寒' },
-        { cid: 6, name: '网络' },
-        { cid: 7, name: '穿越' },
-        { cid: 8, name: '生活' },
-        { cid: 9, name: '青春文学' },
-        { cid: 10, name: '鲁迅' },
-        { cid: 11, name: '当代文学' },
-        { cid: 12, name: '诗词' },
-        { cid: 13, name: '历史' }
+        { id: 1, name: '全部' },
+        { id: 2, name: '国内' },
+        { id: 3, name: '日本' },
+        { id: 4, name: '欧美' },
+        { id: 5, name: '其他' }
+      ],
+      data3: [
+        { id: 1, name: '全部' },
+        { id: 2, name: '连载' },
+        { id: 3, name: '完结' }
       ]
     }
   },
@@ -102,6 +117,16 @@ export default {
     padding 2rem 3rem;
     background-color #fbfbfb;
 }
+.selectCard2{
+    border-bottom 0.1rem solid #cccccc;
+    padding 0.5rem 0;
+}
+.name2{
+    font-size 2.2rem;
+    font-weight bold;
+    color #000000;
+    line-height 1.8;
+}
 .name{
     font-size 2.2rem;
     font-weight bold;
@@ -111,8 +136,7 @@ export default {
     padding 0.5rem 0
 }
 .list{
-    padding 1rem 0 1rem 5rem;
-    border-bottom 0.1rem solid #cccccc;
+    padding: 0 1rem ;
 }
 .content{
   width 100%;

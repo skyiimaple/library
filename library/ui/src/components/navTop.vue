@@ -6,14 +6,14 @@
       </div>
       <div class="myright" v-if="myname==='首页'">
         <ul >
-          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{active:myname===item.name}">
+          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{'active':myname===item.name}">
             <div v-if="item.name!=='首页'">{{item.name}}</div>
           </li>
         </ul>
       </div>
       <div class="myright" v-else>
         <ul>
-          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{active:myname===item.name}">
+          <li v-for="(item,index) in titleList" :key="index" @click="clickSelect(item)" :class="{'active':myname===item.name}">
             <div >{{item.name}}</div>
           </li>
         </ul>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'navTop',
   components: {
@@ -67,6 +67,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['currMenu']),
     linewidth () {
       let i = 1
       if (this.current === 1) i = 9
@@ -88,6 +89,9 @@ export default {
       }
       this.setCurrMenu(val)
     }
+  },
+  mounted () {
+    this.myname = this.currMenu.name
   }
 }
 </script>
