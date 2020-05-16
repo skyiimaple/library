@@ -8,14 +8,19 @@ module.exports = {
   devServer: {
     hot: true,
     host: '0.0.0.0',
-    port: 8080,
+    port: 8088,
     open: false,
     proxy: {
       '/': {
         ws: false,
-        target: 'http://127.0.0.1:8080/',
+        target: 'http://127.0.0.1:8853/',
         changeOrigin: true
       }
+      // '/auth/userlogin': {
+      //   ws: false,
+      //   target: 'http://127.0.0.1:8819/',
+      //   changeOrigin: true
+      // }
     }
   }
 }

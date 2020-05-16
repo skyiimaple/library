@@ -1,58 +1,61 @@
 import axios from 'axios'
 import QS from 'qs'
-import { router } from '@/router/index'
-import Message from 'ant-design-vue/lib/message'
-const myUtils = {}
-
-// http response(响应拦截)
-axios.interceptors.response.use(
-  response => {
-    // 可以在这里做全部统一处理
-    if (response.data.success) {
-      return Promise.resolve(response)
-    } else {
-      if (response.data.code) {
-        switch (response.data.code) {
-          case '9999':
-            Message.error(response.data.message)
-            return Promise.reject(response)
-          case '1001':
-            Message.error(response.data.message, 3, () => {
-            })
-            return Promise.reject(response)
-          default:
-            Message.error(response.data.message, 3, () => {
-              router.replace({
-                path: '/login'
-              })
-            })
-            return Promise.reject(response)
-        }
-      }
-    }
-  },
-  error => {
-    // 对响应错误做点什么
-    return Promise.reject(error.response)
-  }
-)
+const fetch = {}
+axios.defaults.withCredentials = true
 // http request(请求拦截)
 axios.interceptors.request.use(
   config => {
+    // console.log('请求拦截', config)
+    // 设置vuex属性加载中
+    // myStore.commit('tab/setSearchState', false)
     return config
   },
   error => {
     return Promise.reject(error)
   }
 )
-axios.defaults.withCredentials = true
-
-myUtils.install = (Vue, options) => {
+// http response请求拦截
+axios.interceptors.response.use(
+  response => { // 成功请求到数据
+    // 这里根据后端提供的数据进行对应的处理
+    if (response.data) {
+      return Promise.resolve(response)
+    }
+  },
+  error => { // 响应错误处理
+    return Promise.reject(error)
+  }
+)
+fetch.install = (Vue, options) => {
+  Vue.$getTime = (date, offset = 0, type = false) => {
+    var tdate = new Date(date)
+    tdate.setDate(tdate.getDate() + offset)
+    var y = tdate.getFullYear()
+    var m = tdate.getMonth() + 1
+    m = m < 10 ? '0' + m : m
+    var d = tdate.getDate()
+    d = d < 10 ? '0' + d : d
+    if (type) {
+      var H = tdate.getHours()
+      H = H < 10 ? '0' + H : H
+      var M = tdate.getMinutes()
+      M = M < 10 ? '0' + M : M
+      var S = tdate.getSeconds()
+      S = S < 10 ? '0' + S : S
+      if (H === '00' && M === '00' && S === '00') {
+        return y + '-' + m + '-' + d + ' ' + '12:00:00'
+      } else {
+        return y + '-' + m + '-' + d + ' ' + H + ':' + M + ':' + S
+      }
+    } else {
+      return y + '-' + m + '-' + d
+    }
+  }
   let host = process.env.NODE_ENV === 'development' ? options.domaintest : window.location.origin
   console.log(host)
   // axios.defaults.baseURL = host
   // post请求(From Data)
-  Vue.$post_from = (url, params) => {
+  Vue.$post = (url, params) => {
     return new Promise((resolve, reject) => {
       axios.post(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
         .then(response => {
@@ -62,20 +65,8 @@ myUtils.install = (Vue, options) => {
         })
     })
   }
-  // post请求(Request Payload)
-  Vue.$my_post = (url, params) => {
-    return new Promise((resolve, reject) => {
-      axios.post(url, params)
-        .then(response => {
-          resolve(response.data)
-        })
-        .catch(err => {
-          reject(err.data)
-        })
-    })
-  }
   // get请求(Request Payload)
-  Vue.$my_get = (url, params = {}) => {
+  Vue.$get = (url, params = {}) => {
     return new Promise((resolve, reject) => {
       axios.get(url, {
         params: params
@@ -88,5 +79,39 @@ myUtils.install = (Vue, options) => {
         })
     })
   }
+
+  Vue.$from = (url, params) => {
+    return new Promise((resolve, reject) => {
+      axios.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } })
+        .then(response => {
+          resolve(response.data)
+        }).catch((error) => {
+          reject(error)
+        })
+    })
+  }
+  // put请求(Request Payload)
+  Vue.$put = (url, params) => {
+    return new Promise((resolve, reject) => {
+      axios.put(url, params, { headers: { 'Content-Type': 'application/json' } })
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err.data)
+        })
+    })
+  }
+  // delete请求(From Data)
+  Vue.$delete = (url, params) => {
+    return new Promise((resolve, reject) => {
+      axios.delete(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        .then(response => {
+          resolve(response.data)
+        }).catch((error) => {
+          reject(error)
+        })
+    })
+  }
 }
-export default myUtils
+export default fetch

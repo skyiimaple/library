@@ -15,13 +15,15 @@
         </div>
         <div style="text-align:center">这里放验证码</div>
         <div class="myRow">
-          <a-button class="loginbtn" type="primary" v-if="Title==='登录'" @click="loginFn()">登录</a-button>
+          <a-button class="loginbtn" type="primary" v-if="Title==='登录'" @click="login">登录</a-button>
           <a-button class="loginbtn" type="danger" @click="regist">注册</a-button>
         </div>
       </div>
     </a-modal>
 </template>
+
 <script>
+import mapMutations from 'vuex'
 export default {
   name: 'login',
   data () {
@@ -35,16 +37,23 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setUserInfo']),
     openLogin () {
       this.visible = true
     },
     regist () {
       this.Title = '注册'
+    },
+    login () {
+      console.log('sss')
+      this.$api.login(this.userinfo).then(res => {
+        if (res.success) {
+          this.$message.success('登录成功')
+          this.visible = false
+          this.setUserInfo()
+        }
+      })
     }
-  },
-  created () {
-    console.log('login created')
-    // this.currentUser()
   }
 }
 </script>
