@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.chuanshuke.protal.service.RecommendService" x="866" y="212">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.mapper.RecommendMapper"
+            endpointName="recommendMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.mapper.RecommendBookRepository"
+            endpointName="recommendBookRepository" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.protal.mapper.RecommendMapper"/>
+        <Communication destinationClassName="com.chuanshuke.protal.mapper.RecommendBookRepository"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.service.BookInfoService" x="132" y="206">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.mapper.BookInfoMapper"
+            endpointName="bookInfoMapper" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.client.CmsClient"
+            endpointName="cmsClient" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.protal.client.CmsClient"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.client.CmsClient" x="49" y="356">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.mapper.RecommendMapper" x="798" y="467">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.controller.BookInfoController"
+        x="469" y="15">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.service.RecommendService"
+            endpointName="recommendService" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.protal.service.BookInfoService"
+            endpointName="bookInfoService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.protal.service.RecommendService"/>
+        <Communication destinationClassName="com.chuanshuke.protal.service.BookInfoService"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.mapper.BookInfoMapper" x="728" y="343">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.protal.mapper.RecommendBookRepository"
+        x="1068" y="460">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+</ClassDiagram>

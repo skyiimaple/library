@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.chuanshuke.manage_cms.controller.TbBookController"
+        x="348" y="152">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbBookService"
+            endpointName="tbBookService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbBookService"/>
+    </Class>
+    <Class
+        name="com.chuanshuke.manage_cms.controller.TbBookCatController"
+        x="1015" y="259">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbBookCatService"
+            endpointName="tbBookCatService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbBookCatService"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbBookRepository" x="365" y="857">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbBookCatRepository"
+        x="1291" y="791">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="com.chuanshuke.manage_cms.controller.TbCommentController"
+        x="1563" y="234">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbCommentService"
+            endpointName="tbCommentService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbCommentService"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbBookCatMapper" x="869" y="813">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbCommentMapper" x="1566" y="746">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.service.TbBookService"
+        x="395" y="463">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookRepository"
+            endpointName="tbBookRepository" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookDescRepository"
+            endpointName="tbBookDescRepository" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookRepository"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbCommentRepository"
+        x="2103" y="724">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.service.TbBookCatService"
+        x="1089" y="539">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatRepository"
+            endpointName="tbBookCatRepository" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatMapper"
+            endpointName="tbbookCatMapper" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatRepository"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatMapper"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.dao.TbBookDescRepository"
+        x="602" y="783">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.manage_cms.service.TbCommentService"
+        x="1649" y="449">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbCommentRepository"
+            endpointName="tbCommentRepository" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbCommentMapper"
+            endpointName="tbCommentMapper" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbCommentMapper"/>
+    </Class>
+</ClassDiagram>

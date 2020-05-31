@@ -1,0 +1,6 @@
+1585763493206	Extract local variable 'response'
+1585763602284	Extract local variable 'results'
+1585763661587	Extract local variable 'numFound'
+1585764233636	Extract local variable 'fieldNames'
+1585845240633	Extract local variable 'search'
+1585847048346	Extract local variable 'id'

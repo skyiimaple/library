@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;csk-parent&apos; to &apos;csk-framework-parent&apos;" description="Rename resource &apos;csk-parent&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/csk-parent" name="csk-framework-parent" stamp="1584371481642" updateReferences="true"/>
+</session>

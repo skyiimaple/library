@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;CmsBookResult.java&apos; to &apos;csk-framework-model/src/main/java/com.chuanshuke.framework.domain.cms.response&apos;&#x0D;&#x0A;- Original project: &apos;csk-framework-model&apos;&#x0D;&#x0A;- Destination element: &apos;csk-framework-model/src/main/java/com.chuanshuke.framework.domain.cms.response&apos;&#x0D;&#x0A;- Original element: &apos;com.chuanshuke.framework.domain.cms.response.CmsBookResult.java&apos;" description="Copy compilation unit" destination="/src\/main\/java&lt;com.chuanshuke.framework.domain.cms.response" element1="/src\/main\/java&lt;com.chuanshuke.framework.domain.cms.response{CmsBookResult.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1585282650886" units="1" version="1.0"/>
+</session>

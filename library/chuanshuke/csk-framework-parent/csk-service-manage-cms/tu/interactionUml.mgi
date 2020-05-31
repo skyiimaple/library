@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.controller.TbBookCatController"
+        x="864" y="47">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbBookCatService"
+            endpointName="tbBookCatService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbBookCatService"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.controller.TbBookController"
+        x="202" y="54">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbBookService"
+            endpointName="tbBookService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbBookService"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.dao.TbBookCatMapper" x="913" y="478"/>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.dao.TbCommentMapper" x="561" y="479"/>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.service.TbCommentService"
+        x="563" y="268">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbCommentMapper"
+            endpointName="tbCommentMapper" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbCommentMapper"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.dao.TbBookRepository" x="204" y="478"/>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.dao.TbBookCatRepository"
+        x="1154" y="367"/>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.controller.TbCommentController"
+        x="547" y="53">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.service.TbCommentService"
+            endpointName="tbCommentService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.service.TbCommentService"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.service.TbBookService" x="218" y="255">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookRepository"
+            endpointName="tbBookRepository" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookRepository"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="com.chuanshuke.manage_cms.service.TbBookCatService"
+        x="879" y="284">
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatRepository"
+            endpointName="tbBookCatRepository" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatMapper"
+            endpointName="tbbookCatMapper" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatRepository"/>
+        <Communication destinationClassName="com.chuanshuke.manage_cms.dao.TbBookCatMapper"/>
+    </CommunicationClass>
+</ClassDiagram>

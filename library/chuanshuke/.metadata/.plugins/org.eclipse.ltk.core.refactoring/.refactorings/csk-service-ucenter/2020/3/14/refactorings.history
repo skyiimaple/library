@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;user&apos; from expression &apos;tbUserRepository.findByUsername(username)&apos;&#x0D;&#x0A;- Original project: &apos;csk-service-ucenter&apos;&#x0D;&#x0A;- Variable name: &apos;user&apos;&#x0D;&#x0A;- Destination method: &apos;com.chuanshuke.ucenter.service.TbUserService.findByUsername()&apos;&#x0D;&#x0A;- Variable expression: &apos;tbUserRepository.findByUsername(username)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;user&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src\/main\/java&lt;com.chuanshuke.ucenter.service{TbUserService.java" name="user" replace="true" selection="466 0" stamp="1585646973588" varType="false" version="1.0"/>
+</session>

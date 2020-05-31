@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.chuanshuke.ucenter.service.TbUserService" x="512" y="240">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.ucenter.dao.TbUserRepository"
+            endpointName="tbUserRepository" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.ucenter.dao.TbUserRepository"/>
+    </Class>
+    <Class name="com.chuanshuke.ucenter.dao.TbUserRepository" x="610" y="399">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.ucenter.controller.UserController"
+        x="529" y="92">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.ucenter.service.TbUserService"
+            endpointName="tbUserService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.ucenter.service.TbUserService"/>
+    </Class>
+</ClassDiagram>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.chuanshuke.manage_cms.dao.TbBookCatMapper">
+
+	<resultMap id="tbBookCatMap"
+		type="com.chuanshuke.framework.domain.cms.ext.TbBookCatNode">
+		<id column="one_id" property="id"></id>
+		<result column="one_name" property="name"></result>
+		<collection property="children"
+			ofType="com.chuanshuke.framework.domain.cms.ext.TbBookCatNode">
+			<id column="two_id" property="id"></id>
+			<result column="two_name" property="name"></result>
+			<collection property="children"
+				ofType="com.chuanshuke.framework.domain.cms.ext.TbBookCatNode">
+				<id column="three_id" property="id"></id>
+				<result column="three_name" property="name"></result>
+			</collection>
+			
+		</collection>
+
+	</resultMap>
+
+	<select id="selectList" resultMap="tbBookCatMap">
+		SELECT
+			a.`id` one_id,
+			a.`name` one_name,
+			b.`id` two_id,
+			b.`name` two_name,
+			c.`id` three_id,
+			c.`name` three_name
+		FROM
+			tb_book_cat a
+		LEFT JOIN
+			tb_book_cat b
+		ON 
+			b.`parent_id` = a.`id`
+		LEFT JOIN 
+			tb_book_cat c
+		ON
+			c.`parent_id` = b.`id`
+		WHERE a.`parent_id` = 0
+		<!-- <if test="_parameter != null and _parameter != ''"> AND a.`id` = #{id} 
+			</if> -->
+		ORDER BY 
+			a.`sort_order`,
+			b.`sort_order`,
+			c.`sort_order`
+	</select>
+</mapper>
