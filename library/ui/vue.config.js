@@ -11,16 +11,16 @@ module.exports = {
     port: 8088,
     open: false,
     proxy: {
-      '/': {
+      '/search/get': {
+        ws: false,
+        target: 'http://127.0.0.1:8989/',
+        changeOrigin: true
+      },
+      '/api': {
         ws: false,
         target: 'http://127.0.0.1:8853/',
         changeOrigin: true
       }
-      // '/auth/userlogin': {
-      //   ws: false,
-      //   target: 'http://127.0.0.1:8819/',
-      //   changeOrigin: true
-      // }
     }
   }
 }
