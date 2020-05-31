@@ -116,7 +116,7 @@ export default {
     getBookManage () {
       let data = {
         page: 1,
-        size: 1
+        size: 10
       }
       this.$api.getBookManage(data).then(res => {
         if (res.success) {
