@@ -28,8 +28,8 @@ export default {
 
 <style lang="stylus" scoped>
 .mainContainer{
-    width 82%;
-    margin auto;
+    width:82%;
+    margin:auto;
 }
 .box{
 }

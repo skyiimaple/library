@@ -27,7 +27,7 @@
           <div class="moveline"  :style="{left:linewidth+'rem'}"></div>
         </div>
         <div>
-          <a-input-search placeholder="你想看的世界" @search="onSearch" size="large" enterButton style="width:40%"/>
+          <a-input-search placeholder="你想看的世界" v-model="text" @search="onSearch" size="large" enterButton style="width:40%"/>
         </div>
       </div>
       <div class="search2" v-else>
@@ -37,7 +37,7 @@
           <div class="moveline"  :style="{left:linewidth+'rem'}"></div>
         </div>
         <div>
-          <a-input-search placeholder="你想看的世界" @search="onSearch" size="large" enterButton style="width:40%"/>
+          <a-input-search placeholder="你想看的世界"  v-model="text" @search="onSearch" size="large" enterButton style="width:40%"/>
         </div>
       </div>
     </div>
@@ -54,6 +54,7 @@ export default {
   },
   data () {
     return {
+      text: '',
       current: 0,
       myname: '首页',
       titleList: [
@@ -78,7 +79,10 @@ export default {
   methods: {
     ...mapMutations(['setCurrMenu']),
     onSearch () {
-
+      this.$api.getSearch({ keywords: this.text }).then(res => {
+        console.log('sss', res)
+        this.$message.success('搜索成功')
+      })
     },
     clickSelect (val) {
       this.myname = val.name

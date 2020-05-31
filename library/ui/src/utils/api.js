@@ -15,5 +15,9 @@ export default {
   // 获取分类标签
   getTags (p) {
     return Vue.$get('/api/cms/cat/list/', p)
+  },
+  // 搜索
+  getSearch (p) {
+    return Vue.$get('/search/get', p)
   }
 }
