@@ -1,11 +1,16 @@
 server:
   port: ${PORT:8761}
-spring:  application:    name: csk-govern-center
-eureka:  client:    register-with-eureka: false #true
+spring:
+  application:
+    name: csk-govern-center
+eureka:
+  client:
+    register-with-eureka: false #true
     fetch-registry: false #true
-    service-url:      defaultZone: ${EUREKA_SERVER:http://eureka01:8761/eureka/}
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://127.0.0.1:8761/eureka/}
   server:
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 60000
-#  instance:#    hostname: ${EUREKA_DOMAIN:eureka01}
-  
+#  instance:
+#    hostname: ${EUREKA_DOMAIN:eureka01}

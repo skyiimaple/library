@@ -36,7 +36,7 @@ public class BookInfoService {
 	}
 		
 	public PortalResult getBookInfo(String name) {
-		BookInfo bookInfo = bookInfoMapper.getBookInfoById(name).get(0);
+		BookInfo bookInfo = bookInfoMapper.getBookInfoByName(name).get(0);
 		if(bookInfo == null) {
 			return new PortalResult(CommonCode.FAIL, null);
 		}

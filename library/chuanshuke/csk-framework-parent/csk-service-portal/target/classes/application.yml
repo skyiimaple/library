@@ -1,11 +1,15 @@
 server:
   port: ${PORT:8854}
-mybatis:  configuration:    map-underscore-to-camel-case: true #表中字段含下划线，自动启用驼峰原则
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #表中字段含下划线，自动启用驼峰原则
 spring:
   application:
     name: csk-service-portal
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect    hibernate:      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
     show-sql: true
   redis:
     host: ${REDIS_HOST:127.0.0.1}
@@ -19,7 +23,8 @@ spring:
         maxWait: -1 #连接池最大等行时间 -1没有限制
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/chuanshuke?useUnicode=true&characterEncoding=utf-8&useSSL=false      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/chuanshuke?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: root
       initialSize: 5  #初始建立连接数量
@@ -36,7 +41,9 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:      defaultZone: ${EUREKA_SERVER:http://eureka01:8761/eureka/} #http://localhost:8762/eureka/}  instance:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://127.0.0.1:8761/eureka/} #http://localhost:8762/eureka/}
+  instance:
     prefer-ip-address: true
-    ip-address: ${IP_ADDRESS:127.0.0.1} 
-    instance-id: ${spring.application.name}:${server.port}    
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}:${server.port}

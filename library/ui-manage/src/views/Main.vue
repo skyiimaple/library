@@ -12,13 +12,11 @@
                 <a-sub-menu key="sub1">
                     <span slot="title"  title="图书"><a-icon type="home" theme="twoTone"/><span>图书管理</span></span>
                     <a-menu-item @click="goTo('info')">我的图书</a-menu-item>
+                    <a-menu-item @click="goTo('info')">图书详情</a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub2">
                     <span slot="title"  title="图书分类"><a-icon type="appstore" theme="twoTone"/><span>图书分类</span></span>
                     <a-menu-item  @click="goTo('category')">我的分类</a-menu-item>
-                    <a-menu-item>Option 6</a-menu-item>
-                    <a-menu-item >Option 7</a-menu-item>
-                    <a-menu-item >Option 8</a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub3">
                     <span slot="title" title="评论管理"><a-icon type="like" theme="twoTone"/><span>评论管理</span></span>

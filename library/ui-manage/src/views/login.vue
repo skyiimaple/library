@@ -38,7 +38,15 @@ export default {
   },
   methods: {
     login () {
-      this.$router.push({ name: 'info' })
+      this.$api.login(this.userinfo).then(res => {
+        if (res.success) {
+          this.$message.success('登录成功')
+          this.$router.push({ name: 'info' })
+        } else {
+          this.$message.error(res.message)
+          this.$router.push({ name: 'info' })
+        }
+      })
     }
   },
   mounted () {
