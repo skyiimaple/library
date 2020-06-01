@@ -32,8 +32,8 @@ public interface PortalControllerApi {
 	public QueryResponseResult<TbBookCat> list(int page, int size);
 	
 	@ApiOperation(value = "获取图书详细信息（包含内容简介）")
-	@ApiImplicitParam(name = "id", value = "图书ID", required = true, paramType = "path", dataType = "long")
-	public PortalResult getBookInfo(Long id);
+	@ApiImplicitParam(name = "name", value = "书名", required = true, paramType = "path", dataType = "String")
+	public PortalResult getBookInfo(String name);
 	
 	@ApiOperation(value = "图书详情页，评论列表")
 	@ApiImplicitParam(name = "bid", value = "图书ID", required = true, paramType = "path", dataType = "long")

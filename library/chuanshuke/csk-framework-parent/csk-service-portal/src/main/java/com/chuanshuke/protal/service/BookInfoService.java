@@ -35,8 +35,8 @@ public class BookInfoService {
 		return cmsClient.catList(page, size);
 	}
 		
-	public PortalResult getBookInfo(Long id) {
-		BookInfo bookInfo = bookInfoMapper.getBookInfoById(id).get(0);
+	public PortalResult getBookInfo(String name) {
+		BookInfo bookInfo = bookInfoMapper.getBookInfoById(name).get(0);
 		if(bookInfo == null) {
 			return new PortalResult(CommonCode.FAIL, null);
 		}

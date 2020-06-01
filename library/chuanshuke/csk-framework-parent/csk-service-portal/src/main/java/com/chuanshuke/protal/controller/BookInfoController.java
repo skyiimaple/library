@@ -37,10 +37,10 @@ public class BookInfoController implements PortalControllerApi {
 		return bookInfoService.listBook(page, size, queryBookRequest);
 	}
 	
-	@GetMapping("/get/book/{id}")
+	@GetMapping("/get/book/{name}")
 	@Override
-	public PortalResult getBookInfo(@PathVariable Long id) {
-		return bookInfoService.getBookInfo(id);
+	public PortalResult getBookInfo(@PathVariable String name) {
+		return bookInfoService.getBookInfo(name);
 	}
 
 	@GetMapping("/list/cat/{page}/{size}")
