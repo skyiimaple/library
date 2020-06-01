@@ -8,11 +8,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currMenu: { name: '首页', path: 'home' },
-    userInfo: ''
+    userInfo: '',
+    viewsData: []
   },
   getters: {
     getCurrMenu (state) {
       return state.currMenu
+    },
+    getViewsData (state) {
+      return state.viewsData
     }
   },
   mutations: {
@@ -21,6 +25,9 @@ export default new Vuex.Store({
     },
     setUserInfo (state, userInfo) {
       state.userInfo = userInfo
+    },
+    setViewsData (state, viewsData) {
+      state.viewsData = viewsData
     }
   },
   actions: {

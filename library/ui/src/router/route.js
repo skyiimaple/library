@@ -29,6 +29,16 @@ const allRouter = [
         path: '/annualList',
         name: 'annualList',
         component: () => import('@/views/annualList')
+      },
+      {
+        path: '/search',
+        name: 'search',
+        component: () => import('@/views/search')
+      },
+      {
+        path: '/bookInfo',
+        name: 'bookInfo',
+        component: () => import('@/views/bookInfo')
       }
     ]
   }

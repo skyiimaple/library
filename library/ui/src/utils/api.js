@@ -16,8 +16,16 @@ export default {
   getTags (p) {
     return Vue.$get('/api/cms/cat/list/', p)
   },
+
   // 搜索
   getSearch (p) {
     return Vue.$get('/search/get', p)
+  },
+  // 获取详情
+  getInfoById (p) {
+    return Vue.$get('/api/cms/book/get/desc/' + p)
+  },
+  getInfoById2 (p) {
+    return Vue.$get('/api/cms/book/get/' + p)
   }
 }

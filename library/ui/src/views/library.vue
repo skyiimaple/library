@@ -36,7 +36,7 @@
         <div class="selectCard2 myflex">
             <div class="name2">标签:</div>
             <div class="list2">
-                <a-radio-group @change="onChange2" v-model="type5" buttonStyle="solid">
+                <a-radio-group @change="onChange2" v-model="type1" buttonStyle="solid">
                     <a-radio-button :value="index" v-for="(item,index) in tagsList" :key="index" style="margin:0.5rem">{{item.name}}</a-radio-button>
                 </a-radio-group>
             </div>
@@ -50,27 +50,28 @@
     </div>
     <div class="content">
         <div class="card-item">
-            <div class="book" v-for="(res,index) in datasource" :key="index">
-            <a-card  style="width: 100%">
-                <img :src="res.image" slot="cover" v-if="type3==='a'"/>
-                <img :src="res.image" slot="cover" v-else/>
-                <a-card-meta :title="res.name">
-                <template slot="description">{{res.publisher}}</template>
-                </a-card-meta>
-            </a-card>
+            <div class="book" v-for="(res,index) in datasource" :key="index" @click="goTo(res)">
+              <div class="image">
+                <img :src="res.image" alt="">
+              </div>
+              <div style="text-align:center;font-size:20px;padding:5px 10px">{{res.name}}</div>
+              <div  style="text-align:center;font-size:20px;padding:5px 10px">{{res.publisher}}</div>
             </div>
         </div>
     </div>
+    <div><div style="text-align:center;font-size:20px;padding:5px10px;margin:auto;width:150px;border:1px solid #ccc" @click="more">加载更多+</div></div>
 </div>
 </template>
 
 <script>
+// import mapState from 'vuex'
 export default {
   name: 'library',
   data () {
     return {
       datasource: [],
       tagsList: [],
+      currentsize: '',
       type1: 0, // 分类
       type2: 1, // 地区
       type4: 1, // 进度
@@ -106,6 +107,7 @@ export default {
       ]
     }
   },
+
   methods: {
     onChange (e) {
       console.log(`checked = ${e.target.value}`)
@@ -122,6 +124,20 @@ export default {
         if (res.success) {
           console.log('sss', res)
           this.datasource = res.queryResult.list
+          this.currentsize = res.queryResult.list.length
+        }
+      })
+    },
+    more () {
+      let data = {
+        page: 1,
+        size: this.currentsize
+      }
+      this.$api.getBookManage(data).then(res => {
+        if (res.success) {
+          console.log('sss', res)
+          this.datasource = this.datasource.concat(res.queryResult.list)
+          this.currentsize = this.datasource.length + 10
         }
       })
     },
@@ -136,6 +152,9 @@ export default {
           this.tagsList = res.queryResult.list
         }
       })
+    },
+    goTo (data) {
+      this.$router.push({ name: 'bookInfo', params: { data: data }, query: { id: data.id } })
     }
   },
   mounted () {
@@ -145,9 +164,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .mainContainer{
-    width:82%;
+    width:90%;
     margin: auto
 }
 .selectTitle{
@@ -164,6 +183,7 @@ export default {
     font-weight: bold;
     color: #000000;
     line-height :1.8;
+    width:60px;
 }
 .name{
     font-size: 2.2rem;
@@ -178,20 +198,27 @@ export default {
 }
 .content{
   width :100%;
-  padding :2rem 7rem 1.5rem 7rem;
+  padding :2rem 1rem 1.5rem 8rem;
 }
-
-  .card-item{
-    display: grid;
-    grid-template-columns: repeat(4,25%);
-  }
 .content .book{
-  height:  auto;
-  width :100%;
-  padding: 0 3%;
-  margin :1rem 0;
+  height:  580px;
+  width :312px;
+  margin :1rem;
+  display: inline-block;
+}
+.content .book  .image{
+  width: 312px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+.content .book  .image img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
 }
 .mainContainer .content .book:hover{
-    box-shadow :0 0 2rem 0 #cccccc inset;
+box-shadow: 0 5px 20px  #666666;
 }
 </style>

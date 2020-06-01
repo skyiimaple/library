@@ -41,7 +41,28 @@
         </div>
       </div>
     </div>
-    <login ref="login"></login>
+    <!-- <login ref="login"></login> -->
+     <a-modal v-model="visible" :title="Title"  :footer="null" :width="620" :maskClosable="false">
+      <div class="content">
+        <div class="myRow">
+          <span class="name">用户名：</span>
+          <a-input class="input" v-model="userinfo.username" size="large" placeholder="请输入用户名" style="width:30rem"/>
+        </div>
+        <div class="myRow">
+          <span class="name">密码：</span>
+          <a-input class="input" v-model="userinfo.password" size="large" placeholder="请输入密码" type="password" style="width:30rem"  />
+        </div>
+        <!-- <div class="myRow">
+          <span class="name">验证码：</span>
+          <a-input class="input" v-model="userinfo.safeword" size="large" placeholder="请输入验证码"  style="width:30rem" @keyup.enter="loginFn()" />
+        </div>
+        <div style="text-align:center">这里放验证码</div> -->
+        <div class="myRow">
+          <a-button class="loginbtn" type="primary" v-if="Title==='登录'" @click="login">登录</a-button>
+          <a-button class="loginbtn" type="danger" @click="regist">注册</a-button>
+        </div>
+      </div>
+    </a-modal>
   </div>
 </template>
 
@@ -50,19 +71,23 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'navTop',
   components: {
-    login: () => import('@/views/login')
+    // login: () => import('@/views/login')
   },
   data () {
     return {
+      userinfo: {
+        username: '',
+        password: ''
+      },
+      visible: false,
+      Title: '登录',
       text: '',
       current: 0,
       myname: '首页',
       titleList: [
         { name: '首页', path: 'home' },
         { name: '电子图书', path: 'library' },
-        { name: '年度榜单', path: 'annualList' },
         { name: '书店', path: 'bookShop' },
-        { name: '个人中心', path: 'person' },
         { name: '登录/注册' }
       ]
     }
@@ -77,17 +102,45 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setCurrMenu']),
+    ...mapMutations(['setCurrMenu', 'setUserInfo', 'setViewsData']),
+    openLogin () {
+      this.visible = true
+    },
+    regist () {
+      this.Title = '注册'
+    },
+    login () {
+      console.log('sss')
+      this.$message.loading('登录中...')
+      this.$api.login(this.userinfo).then(res => {
+        if (res.success) {
+          this.$message.success('登录成功')
+          this.visible = false
+          this.setUserInfo()
+          this.titleList[3] = { name: '个人中心', path: 'person' }
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
     onSearch () {
       this.$api.getSearch({ keywords: this.text }).then(res => {
-        console.log('sss', res)
-        this.$message.success('搜索成功')
+        if (res.success) {
+          console.log('sss', res)
+          this.$message.success('搜索成功')
+          this.$message.success('总共' + res.list.length + '个内容')
+          this.$router.push({ name: 'search' })
+          this.setViewsData(res.list)
+          this.text = ''
+        } else {
+          this.$message.error('搜索失败')
+        }
       })
     },
     clickSelect (val) {
       this.myname = val.name
       if (val.name === '登录/注册') {
-        this.$refs.login.openLogin()
+        this.openLogin()
       } else {
         this.$router.push('/' + val.path)
       }
@@ -189,5 +242,23 @@ export default {
 .active{
   color: skyblue;
   font-weight: 600;
+}
+
+.myRow{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  padding-right: 8rem;
+}
+.name{
+  width: 10rem;
+  text-align: right;
+}
+.loginbtn{
+  margin: 0 5px;
+}
+.content{
+  background-image: url('../assets/img/login.jpg');
 }
 </style>
