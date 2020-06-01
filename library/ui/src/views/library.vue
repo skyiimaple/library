@@ -37,7 +37,7 @@
             <div class="name2">标签:</div>
             <div class="list2">
                 <a-radio-group @change="onChange2" v-model="type1" buttonStyle="solid">
-                    <a-radio-button :value="index" v-for="(item,index) in tagsList" :key="index" style="margin:0.5rem">{{item.name}}</a-radio-button>
+                    <a-radio-button :value="item.id" v-for="(item,index) in tagsList" :key="index" style="margin:0.5rem">{{item.name}}</a-radio-button>
                 </a-radio-group>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="card-item">
             <div class="book" v-for="(res,index) in datasource" :key="index" @click="goTo(res)">
               <div class="image">
-                <img :src="res.image" alt="">
+                <img :src="res.image" alt="" :title="res.name">
               </div>
               <div style="text-align:center;font-size:20px;padding:5px 10px">{{res.name}}</div>
               <div  style="text-align:center;font-size:20px;padding:5px 10px">{{res.publisher}}</div>
@@ -72,7 +72,7 @@ export default {
       datasource: [],
       tagsList: [],
       currentsize: '',
-      type1: 0, // 分类
+      type1: 1, // 分类
       type2: 1, // 地区
       type4: 1, // 进度
       type5: 0, // 字母
@@ -113,12 +113,17 @@ export default {
       console.log(`checked = ${e.target.value}`)
     },
     onChange2 (e) {
-      console.log(`checked = ${e.target.value}`)
+      console.log(`checked `, e)
+      this.getBookManage()
     },
     getBookManage () {
       let data = {
         page: 1,
-        size: 10
+        size: 10,
+        bid: ''
+      }
+      if (this.type1 !== 1) {
+        data.bid = this.type1
       }
       this.$api.getBookManage(data).then(res => {
         if (res.success) {
@@ -132,6 +137,9 @@ export default {
       let data = {
         page: 1,
         size: this.currentsize
+      }
+      if (this.type1 !== 1) {
+        data.bid = this.type1
       }
       this.$api.getBookManage(data).then(res => {
         if (res.success) {
@@ -205,6 +213,7 @@ export default {
   width :312px;
   margin :1rem;
   display: inline-block;
+  overflow: hidden;
 }
 .content .book  .image{
   width: 312px;
