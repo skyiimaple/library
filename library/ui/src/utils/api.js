@@ -6,15 +6,18 @@ export default {
   },
   // 获取图书管理
   getBookManage (p) {
-    return Vue.$get('/api/cms/book/list/' + p.page + '/' + p.size, { bid: p.bid })
+    // return Vue.$get('/api/cms/book/list/' + p.page + '/' + p.size, { bid: p.bid })
+    return Vue.$get('/api/portal/list/book/' + p.page + '/' + p.size, { bid: p.bid })
   },
   // 获取图书分类管理
   getCatgoryManage (p) {
     return Vue.$get('/api/cms/cat/list/', p)
+    // return Vue.$get('/api/portal/list/cat/', p)
   },
   // 获取分类标签
   getTags (p) {
-    return Vue.$get('/api/cms/cat/list/' + p.page + '/' + p.size)
+    // return Vue.$get('/api/cms/cat/list/' + p.page + '/' + p.size)
+    return Vue.$get('/api/portal/list/cat/' + p.page + '/' + p.size)
   },
 
   // 搜索
