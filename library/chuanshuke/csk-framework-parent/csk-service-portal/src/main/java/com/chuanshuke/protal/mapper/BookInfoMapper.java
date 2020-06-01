@@ -20,7 +20,7 @@ public interface BookInfoMapper {
 			"    ON b.`id` = d.`book_id` " + 
 			"  JOIN tb_book_cat  AS c " + 
 			"    ON b.`bid` = c.`id`" + 
-			"WHERE b.`id` = #{name}")
-	List<BookInfo> getBookInfoById(@Param("name") String name);
+			"WHERE b.`name` = #{name}")
+	List<BookInfo> getBookInfoByName(@Param("name") String name);
 
 }

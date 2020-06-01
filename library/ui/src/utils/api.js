@@ -30,6 +30,6 @@ export default {
   },
   // 获取评论
   getCommon (p) {
-    return Vue.$get('/api//cms/comment/list/' + p)
+    return Vue.$get('/api/cms/comment/list/' + p)
   }
 }

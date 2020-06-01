@@ -12,16 +12,16 @@ import org.springframework.web.client.RestTemplate;
 
 @EntityScan("com.chuanshuke.framework.domain")
 @ComponentScan("com.chuanshuke.framework")
-@ComponentScan("com.chuashuke.api")
+@ComponentScan("com.chuanshuke.api")
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
 public class PortalApplication {
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(PortalApplication.class, args);
 	}
-	
+
 //	@Bean
 //	public RestTemplate restTemplate() {
 //		return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
