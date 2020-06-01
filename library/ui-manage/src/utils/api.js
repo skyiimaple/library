@@ -50,6 +50,10 @@ export default {
   },
   // 获取评论
   getCommon (p) {
-    return Vue.$post('/api/cms/comment/list/' + p.page + '/' + p.size)
+    return Vue.$get('/api/cms/comment/list/' + p.page + '/' + p.size)
+  },
+  // 删除评论
+  deleteComment (p) {
+    return Vue.$delete('/api/cms/comment/delete/' + p)
   }
 }

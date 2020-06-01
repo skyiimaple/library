@@ -12,6 +12,9 @@
             <a-button style="margin:5px 10px" @click="edit(record.id)">修改</a-button>
             <a-button type='danger' @click="delete(record.id)">删除</a-button>
           </template>
+        <template slot="updated" slot-scope="text,record">
+            {{record.updated?$getTime(record.status,0,true):''}}
+        </template>
         </a-table>
     </div>
   </div>
@@ -29,15 +32,11 @@ export default {
       datasource: [
       ],
       columns: [
-        { title: '书名', dataIndex: 'name', width: 150, align: 'center' },
-        { title: '作者', dataIndex: 'author', width: 80, align: 'center', scopedSlots: { customRender: 'author' } },
-        { title: '翻译人', dataIndex: 'translator', width: 80, align: 'center' },
-        { title: '出版社', dataIndex: 'publisher', width: 150, align: 'center' },
-        { title: '封面照片', dataIndex: 'image', width: 150, align: 'center', scopedSlots: { customRender: 'image' } },
-        { title: '当前状态', dataIndex: 'status', width: 90, align: 'center', scopedSlots: { customRender: 'status' } },
-        { title: '加入时间', dataIndex: 'created', width: 150, align: 'center', scopedSlots: { customRender: 'created' } },
+        { title: '书id', dataIndex: 'bid', width: 150, align: 'center' },
+        { title: '内容', dataIndex: 'content', width: 120, align: 'center', scopedSlots: { customRender: 'content' } },
+        { title: '得分', dataIndex: 'score', width: 100, align: 'center' },
         { title: '更新时间', dataIndex: 'updated', width: 150, align: 'center', scopedSlots: { customRender: 'updated' } },
-        { title: '操作', dataIndex: 'opertion', width: 150, align: 'center', scopedSlots: { customRender: 'opertion' } }, {}
+        { title: '操作', dataIndex: 'opertion', width: 220, align: 'center', scopedSlots: { customRender: 'opertion' } }, {}
       ],
       tableLoading: false,
       pagination: {
@@ -80,15 +79,43 @@ export default {
 
     },
     delete (id) {
-      this.$api.deleteCategory(id).then(res => {
+      this.$api.deleteComment(id).then(res => {
         if (res.success) {
           this.$message.sueecee('删除成功')
         }
       })
     }
+  },
+  activated () {
+    this.getCommon()
   }
 }
 </script>
 
 <style scoped>
+.bar{
+    padding: 10px 0;
+}
+.barContent{
+    background: rgba(255,255,255,0.8);
+    padding: 10px;
+}
+.table{
+    background-color: #fff;
+    border-bottom-right-radius: 20px;
+}
+.my-image{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+.my-image img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
 </style>
