@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.chuanshuke.search.dao.SearchDao" x="351" y="421">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.chuanshuke.search.mq.ConsumerBookManage" x="967" y="238">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.search.service.SearchService"
+            endpointName="searchService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.search.service.SearchService"/>
+    </Class>
+    <Class name="com.chuanshuke.search.service.SearchService" x="538" y="200">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.search.dao.SearchDao"
+            endpointName="searchDao" kind="Simple"/>
+        <Association
+            destinationClassName="com.chuanshuke.search.dao.TbBookRepository"
+            endpointName="tbBookRepository" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.search.dao.SearchDao"/>
+        <Communication destinationClassName="com.chuanshuke.search.dao.TbBookRepository"/>
+    </Class>
+    <Class name="com.chuanshuke.search.controller.SearchController"
+        x="547" y="33">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.chuanshuke.search.service.SearchService"
+            endpointName="searchService" kind="Simple"/>
+        <Communication destinationClassName="com.chuanshuke.search.service.SearchService"/>
+    </Class>
+    <Class name="com.chuanshuke.search.dao.TbBookRepository" x="762" y="409">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+</ClassDiagram>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="com.chuanshuke.manage_cms.controller" x="363" y="109">
+        <DependencyLink destination="com.chuanshuke.manage_cms.service"/>
+    </Package>
+    <Package name="com.chuanshuke.manage_cms.dao" x="464" y="466"/>
+    <Package name="com.chuanshuke.manage_cms.service" x="424" y="303">
+        <DependencyLink destination="com.chuanshuke.manage_cms.config"/>
+        <DependencyLink destination="com.chuanshuke.manage_cms.dao"/>
+    </Package>
+    <Package name="com.chuanshuke.manage_cms.config" x="75" y="188"/>
+</PackageAnalysis>

@@ -1,0 +1,232 @@
+package com.chuanshuke.manage_cms.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSON;
+import com.chuanshuke.framework.domain.cms.TbBook;
+import com.chuanshuke.framework.domain.cms.TbBookDesc;
+import com.chuanshuke.framework.domain.cms.request.QueryBookRequest;
+import com.chuanshuke.framework.domain.cms.response.CmsBookResult;
+import com.chuanshuke.framework.domain.cms.response.CmsCode;
+import com.chuanshuke.framework.exception.ExceptionCast;
+import com.chuanshuke.framework.model.response.CommonCode;
+import com.chuanshuke.framework.model.response.QueryResponseResult;
+import com.chuanshuke.framework.model.response.QueryResult;
+import com.chuanshuke.framework.model.response.ResponseResult;
+import com.chuanshuke.manage_cms.config.RabbitmqConfig;
+import com.chuanshuke.manage_cms.dao.TbBookDescRepository;
+import com.chuanshuke.manage_cms.dao.TbBookRepository;
+
+@Service
+public class TbBookService {
+	
+	@Autowired
+	private TbBookRepository tbBookRepository;
+	
+	@Autowired
+	private TbBookDescRepository tbBookDescRepository;
+	
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+	
+	@Value("${chuanshuke.mq.routingKey.add}")
+	private String QUEUE_ROUTING_KEY_CMS_BOOK_ADD;
+	@Value("${chuanshuke.mq.routingKey.delete}")
+	private String QUEUE_ROUTING_KEY_CMS_BOOK_DELETE;
+	
+	
+	
+	public QueryResponseResult<TbBook> findAll(int page, int size, QueryBookRequest queryBookRequest){
+		
+		if(queryBookRequest == null) {
+			queryBookRequest = new QueryBookRequest();
+		}
+//		自定义查询条件
+		ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+//		条件值对象
+		TbBook tbBook = new TbBook();
+//		设置条件值
+//		书名
+		if(StringUtils.isNotEmpty(queryBookRequest.getName())) {
+			tbBook.setName(queryBookRequest.getName());
+		}
+//		子标题
+		if(StringUtils.isNotEmpty(queryBookRequest.getSubtitle())) {
+			tbBook.setSubtitle(queryBookRequest.getSubtitle());;
+		}
+//		出版社
+		if(StringUtils.isNotEmpty(queryBookRequest.getPublisher())) {
+			tbBook.setPublisher(queryBookRequest.getPublisher());
+		}
+//		isbn
+		if(StringUtils.isNotEmpty(queryBookRequest.getIsbn())) {
+			tbBook.setIsbn(queryBookRequest.getIsbn());
+		}
+//		作者
+		if(StringUtils.isNotEmpty(queryBookRequest.getAuthor())) {
+			tbBook.setAuthor(queryBookRequest.getAuthor());
+		}
+//		翻译
+		if(StringUtils.isNotEmpty(queryBookRequest.getTranslator())) {
+			tbBook.setTranslator(queryBookRequest.getTranslator());
+		}
+		if(StringUtils.isNotEmpty(String.valueOf(queryBookRequest.getBid()))) {
+			tbBook.setBid(queryBookRequest.getBid());
+		}
+//		定义条件对象
+		Example<TbBook> example = Example.of(tbBook, exampleMatcher);
+//		分页参数
+		if(page <= 0) {
+			page = 1;
+		}
+		page = page -1;
+		if(size <= 0) {
+			size = 10;
+		}
+		Page<TbBook> all = tbBookRepository.findAll(PageRequest.of(page, size));
+		QueryResult<TbBook> queryResult = new QueryResult<TbBook>();
+		queryResult.setList(all.getContent());
+		queryResult.setTotal(all.getTotalElements());
+		QueryResponseResult<TbBook> queryResponseResult = new QueryResponseResult<TbBook>(CommonCode.SUCCESS, queryResult);
+		
+		return queryResponseResult;
+	}
+	
+	@Transactional
+	public CmsBookResult add(TbBook tbBook) {
+		
+		if(tbBook == null) {
+			return new CmsBookResult(CmsCode.CMS_BOOK_INFO_MISSING, null);
+		}
+		
+		TbBook book = tbBookRepository.findByName(tbBook.getName());
+		if(book != null) {
+			ExceptionCast.cast(CmsCode.CMS_BOOK_INFO_ERRO);
+		}
+		tbBook.setId(null);
+		tbBook.setCreated(new Date());
+		tbBook.setUpdated(new Date());
+		tbBookRepository.save(tbBook);
+		//发送mq
+		Map<String, String> msg = new HashMap<String, String>();
+		msg.put("name", tbBook.getName());
+		//转成json
+		String jsonString = JSON.toJSONString(msg);
+		rabbitTemplate.convertAndSend(RabbitmqConfig.EX_ROUTING_CMS_BOOK, QUEUE_ROUTING_KEY_CMS_BOOK_ADD, jsonString);
+		
+		return new CmsBookResult(CommonCode.SUCCESS, tbBook);
+	}
+	
+	public TbBook getById(Long id) {
+		
+		Optional<TbBook> optional = tbBookRepository.findById(id);
+		if(optional.isPresent()) {
+			TbBook tbBook = optional.get();
+			return tbBook;
+		}
+		
+		return null;
+	}
+
+	@Transactional
+	public CmsBookResult update(Long id, TbBook tbBook) {
+		
+		TbBook one = getById(id);
+		
+		if(one != null) {
+			one.setName(tbBook.getName());
+			one.setSubtitle(tbBook.getSubtitle());
+			one.setAuthor(tbBook.getAuthor());
+			one.setTranslator(tbBook.getTranslator());
+			one.setPublisher(tbBook.getPublisher());
+			one.setBid(tbBook.getBid());
+			one.setIsbn(tbBook.getIsbn());
+			one.setImage(tbBook.getImage());
+			one.setTotalPage(tbBook.getTotalPage());
+			one.setUpdated(new Date());
+			tbBookRepository.save(one);
+			return new CmsBookResult(CommonCode.SUCCESS, one);
+		}
+		
+		return new CmsBookResult(CommonCode.FAIL, null);
+	}
+	
+	@Transactional
+	public ResponseResult delete(Long id) {
+		
+		TbBook one = tbBookRepository.getOne(id);
+		if(one != null) {
+			tbBookRepository.deleteById(id);
+			return new ResponseResult(CommonCode.SUCCESS);
+		}
+		
+		return new ResponseResult(CommonCode.FAIL);
+	}
+	
+	//图书内容介绍操作
+	
+	@Transactional
+	public ResponseResult addBookDesc(Long bookId, TbBookDesc tbBookDesc) {
+		
+		//检查是否有该图书
+		TbBook one = this.tbBookRepository.getOne(bookId);
+		if(one == null) {
+			return new ResponseResult(CmsCode.CMS_BOOK_IS_NOT_EXIT);
+		}
+		tbBookDesc.setBookId(bookId);
+		tbBookDesc.setCreated(new Date());
+		tbBookDesc.setUpdated(new Date());
+		tbBookDescRepository.save(tbBookDesc);
+		
+		return new ResponseResult(CommonCode.SUCCESS);
+	}
+	
+	public ResponseResult updateBookDesc(Long bookId, TbBookDesc tbBookDesc) {
+		
+		Optional<TbBookDesc> optional = tbBookDescRepository.findById(bookId);
+		if(optional.isPresent()) {
+			TbBookDesc desc = optional.get();
+			if(tbBookDesc.getAuthorProfile() != null) {
+				desc.setAuthorProfile(tbBookDesc.getAuthorProfile());
+			}
+			if(tbBookDesc.getContentDesc() != null) {
+				desc.setContentDesc(tbBookDesc.getContentDesc());				
+			}
+			if(tbBookDesc.getCatalogue() != null) {
+				desc.setCatalogue(tbBookDesc.getCatalogue());				
+			}
+			desc.setUpdated(new Date());
+			tbBookDescRepository.save(desc);
+			return new ResponseResult(CommonCode.SUCCESS);
+		}
+		
+		return new ResponseResult(CommonCode.FAIL);
+		
+	}
+	
+	public TbBookDesc findDescByBookId(Long bookId) {
+		
+		Optional<TbBookDesc> optional = tbBookDescRepository.findById(bookId);
+		if(optional.isPresent()) {
+			TbBookDesc desc = optional.get();
+			return desc;
+		}
+		return null;
+	}
+	
+
+}

@@ -1,0 +1,46 @@
+server:
+  port: 8989
+spring:
+  application:    name: csk-service-search
+  jpa:    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    solr:      host: http://127.0.0.1:8983/solr/chuanshuke
+  rabbitmq:    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/chuanshuke?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: root
+      initialSize: 5  #初始建立连接数量
+      minIdle: 5  #最小连接数量
+      maxActive: 20 #最大连接数量
+      maxWait: 10000  #获取连接最大等待时间，毫秒
+      testOnBorrow: true #申请连接时检测连接是否有效
+      testOnReturn: false #归还连接时检测连接是否有效
+      timeBetweenEvictionRunsMillis: 60000 #配置间隔检测连接是否有效的时间（单位是毫秒）
+      minEvictableIdleTimeMillis: 300000  #连接在连接池的最小生存时间（毫秒）
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      defaultZone: ${EUREKA_SERVER:http://eureka01:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+    ip-address: ${IP_ADDRESS:127.0.0.1} 
+    instance-id: ${spring.application.name}:${server.port}
+chuanshuke:
+  mq:
+    queue:
+      add: queue_cms_book_add
+      delete: queue_cms_book_delete
+    routingKey:
+      add: queue_routing_key_cms_book_add
+      delete: queue_routing_key_cms_book_delete

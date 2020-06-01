@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;CatManageControllerApi.java&apos; to &apos;csk-service-api/src/main/java/com.chuanshuke.api.cms.book_manage&apos;&#x0D;&#x0A;- Original project: &apos;csk-service-api&apos;&#x0D;&#x0A;- Destination element: &apos;csk-service-api/src/main/java/com.chuanshuke.api.cms.book_manage&apos;&#x0D;&#x0A;- Original element: &apos;com.chuanshuke.api.cms.cat_manage.CatManageControllerApi.java&apos;" description="Copy compilation unit" destination="/src\/main\/java&lt;com.chuanshuke.api.cms.book_manage" element1="/src\/main\/java&lt;com.chuanshuke.api.cms.cat_manage{CatManageControllerApi.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1584695639272" units="1" version="1.0"/>
+</session>

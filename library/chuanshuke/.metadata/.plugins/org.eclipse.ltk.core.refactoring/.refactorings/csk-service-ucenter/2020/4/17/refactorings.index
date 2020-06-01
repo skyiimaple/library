@@ -1,0 +1,3 @@
+1587475866659	Extract local variable 'name'
+1587475905866	Extract local variable 'exit'
+1587477198241	Extract local variable 'encode'
