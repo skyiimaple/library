@@ -15,8 +15,8 @@ export default {
   },
   // 获取分类标签
   getTags (p) {
-    // return Vue.$get('/api/cms/cat/list/' + p.page + '/' + p.size)
-    return Vue.$get('/api/portal/list/cat/' + p.page + '/' + p.size)
+    return Vue.$get('/api/cms/cat/list/' + p.page + '/' + p.size)
+    // return Vue.$get('/api/portal/list/cat/' + p.page + '/' + p.size)
   },
 
   // 搜索
@@ -24,11 +24,15 @@ export default {
     return Vue.$get('/search/get', p)
   },
   // 获取详情
-  getInfoById (p) {
-    return Vue.$get('/api/cms/book/get/desc/' + p)
-  },
-  getInfoById2 (p) {
-    return Vue.$get('/api/cms/book/get/' + p)
+  // getInfoById (p) {
+  //   return Vue.$get('/api/cms/book/get/desc/' + p)
+  // },
+  // getInfoById2 (p) {
+  //   return Vue.$get('/api/cms/book/get/' + p)
+  // },
+  // 获取详情
+  getInfoByName (p) {
+    return Vue.$get2('/api/portal/get/book/' + p)
   },
   // 获取评论
   getCommon (p) {

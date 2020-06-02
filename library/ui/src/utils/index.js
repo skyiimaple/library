@@ -57,7 +57,10 @@ fetch.install = (Vue, options) => {
   // post请求(From Data)
   Vue.$post = (url, params) => {
     return new Promise((resolve, reject) => {
-      axios.post(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+      axios.post(url, QS.stringify(params), { headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJzemYiLCJzY29wZSI6WyJhcHAiXSwibmFtZSI6InN6ZiIsImlkIjozLCJleHAiOjE1OTExMTQyODgsImp0aSI6IjFhZTQyZjVjLTY3OTQtNGJiNS05YWE1LTUyNzQ5ZTk4NmEwOSIsImNsaWVudF9pZCI6IkNza1dlYkFwcCJ9.iH8ERmYB232Ib8to2r0jox8Oj7mqotZv3ndinuY4kg4KBBpm5JTxLQzv65GYbpijKEEMevoMptlt8vFwpbqaAyWNCXMSVE1dAm7ZndawzTBTbF4jZGpdReIlOZGOdW0hHT_RnXD9ZH6ex7YwBdybASDoTWIDYMJG_a7hCJ35tFbucR8VyBBOsrD-tUwTBsPK9XdIyEC1avZTZbQsEmdJq-9eQyJM781LwbkmqMzPhPeapnlngMwSk1hA-4mdu7EMEyXSePp3-ozSb7q8IA_63PeDMg7SxxWZzBFVWutykD2l-1mbw2-nW0S9E_1JSoQPmGAKISmBZ-aL58XKI4VhYA'
+      } })
         .then(response => {
           resolve(response.data)
         }).catch((error) => {
@@ -71,6 +74,19 @@ fetch.install = (Vue, options) => {
       axios.get(url, {
         params: params
       })
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
+
+  // get请求(Request Payload)
+  Vue.$get2 = (url, params = {}) => {
+    return new Promise((resolve, reject) => {
+      axios.get(url, { params: params }, { headers: { 'Content-Type': 'application/json' } })
         .then(response => {
           resolve(response.data)
         })
@@ -105,7 +121,10 @@ fetch.install = (Vue, options) => {
   // delete请求(From Data)
   Vue.$delete = (url, params) => {
     return new Promise((resolve, reject) => {
-      axios.delete(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+      axios.delete(url, QS.stringify(params), { headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ' + 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJzemYiLCJzY29wZSI6WyJhcHAiXSwibmFtZSI6InN6ZiIsImlkIjozLCJleHAiOjE1OTExMTQyODgsImp0aSI6IjFhZTQyZjVjLTY3OTQtNGJiNS05YWE1LTUyNzQ5ZTk4NmEwOSIsImNsaWVudF9pZCI6IkNza1dlYkFwcCJ9.iH8ERmYB232Ib8to2r0jox8Oj7mqotZv3ndinuY4kg4KBBpm5JTxLQzv65GYbpijKEEMevoMptlt8vFwpbqaAyWNCXMSVE1dAm7ZndawzTBTbF4jZGpdReIlOZGOdW0hHT_RnXD9ZH6ex7YwBdybASDoTWIDYMJG_a7hCJ35tFbucR8VyBBOsrD-tUwTBsPK9XdIyEC1avZTZbQsEmdJq-9eQyJM781LwbkmqMzPhPeapnlngMwSk1hA-4mdu7EMEyXSePp3-ozSb7q8IA_63PeDMg7SxxWZzBFVWutykD2l-1mbw2-nW0S9E_1JSoQPmGAKISmBZ-aL58XKI4VhYA'
+      } })
         .then(response => {
           resolve(response.data)
         }).catch((error) => {

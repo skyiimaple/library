@@ -42,6 +42,7 @@ export default {
     return {
       mylist: ['图书分类', '我的分类'],
       category: '',
+      currId: '',
       visible: false,
       status: '',
       datasource: [
@@ -70,6 +71,7 @@ export default {
         onShowSizeChange: (current, size) => {
           this.pagination.current = 1
           this.pagination.pageSize = size
+          this.getCatgoryManage()
           console.log('222')
         }
       }
@@ -95,16 +97,18 @@ export default {
       if (val !== 0) {
         this.category = val.name
         this.status = 'edit'
+        this.currId = val.id
       } else {
         this.category = ''
         this.status = 'add'
+        this.currId = ''
       }
     },
     commit () {
       let ways = this.status === 'add' ? 'addCategory' : 'editCatgory'
-      this.$api[ways](this.category).then(res => {
+      this.$api[ways]({ name: this.category, id: this.currId }).then(res => {
         if (res.success) {
-          this.$message.sueecee('操作成功')
+          this.$message.success('操作成功')
           this.getCatgoryManage()
         } else {
           this.$message.error(res.message)
@@ -114,7 +118,7 @@ export default {
     deleting (id) {
       this.$api.deleteCategory(id).then(res => {
         if (res.success) {
-          this.$message.sueecee('删除成功')
+          this.$message.success('删除成功')
           this.getCatgoryManage()
         } else {
           this.$message.error(res.message)

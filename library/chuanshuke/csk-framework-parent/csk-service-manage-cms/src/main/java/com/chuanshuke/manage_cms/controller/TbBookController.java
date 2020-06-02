@@ -27,18 +27,18 @@ import com.chuanshuke.manage_cms.service.TbBookService;
 @RestController
 @RequestMapping("/cms/book")
 public class TbBookController implements BookManageControllerApi {
-	
+
 	@Value("${chuanshuke.fastdfs.imageServerUrl}")
 	private String IMAGE_SERVER_URL;
-	
+
 	@Autowired
 	TbBookService tbBookService;
 
 	@GetMapping("/list/{page}/{size}")
 	@Override
-	public QueryResponseResult<TbBook> findList(@PathVariable("page") int page, 
+	public QueryResponseResult<TbBook> findList(@PathVariable("page") int page,
 			@PathVariable("size")int size, QueryBookRequest queryBookRequest) {
-		
+
 		return tbBookService.findAll(page, size, queryBookRequest);
 	}
 
@@ -54,37 +54,37 @@ public class TbBookController implements BookManageControllerApi {
 		return tbBookService.getById(id);
 	}
 
-	@PutMapping("/edit/{id}")
+	@PostMapping("/edit/{id}")
 	@Override
-	public CmsBookResult edit(Long id, TbBook tbBook) {
-		
+	public CmsBookResult edit(@PathVariable Long id, @RequestBody TbBook tbBook) {
+
 		return tbBookService.update(id, tbBook);
 	}
-	
-	@DeleteMapping("/delete/{id}")
+
+	@PostMapping("/delete/{id}")
 	@Override
-	public ResponseResult delete(@PathVariable Long id) {		
-		
+	public ResponseResult delete(@PathVariable Long id) {
+
 		return tbBookService.delete(id);
-		
+
 	}
 
 	@PostMapping("/add/desc/{id}")
 	@Override
 	public ResponseResult addDesc(@PathVariable(name = "id") Long bookId, @RequestBody TbBookDesc tbBookDesc) {
-		
+
 		return tbBookService.addBookDesc(bookId, tbBookDesc);
 	}
-	
+
 	@GetMapping("/get/desc/{id}")
 	@Override
 	public TbBookDesc findDescByBookId(@PathVariable(name = "id") Long bookId) {
 		return tbBookService.findDescByBookId(bookId);
 	}
 
-	@PutMapping("/edit/desc/{id}")
+	@PostMapping("/edit/desc/{id}")
 	@Override
-	public ResponseResult editBookDesc(Long bookId, TbBookDesc tbBookDesc) {
+	public ResponseResult editBookDesc(@PathVariable Long bookId,  @RequestBody TbBookDesc tbBookDesc) {
 		return tbBookService.updateBookDesc(bookId, tbBookDesc);
 	}
 
@@ -104,7 +104,7 @@ public class TbBookController implements BookManageControllerApi {
 			e.printStackTrace();
 			return new CmsImageResult(CommonCode.FAIL, null);
 		}
-		
+
 	}
 
 }

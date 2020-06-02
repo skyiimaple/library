@@ -14,27 +14,27 @@ export default {
   },
   // 新增分类
   addCategory (p) {
-    return Vue.$post('/api/cms/cat/add', p)
+    return Vue.$mypost('/api/cms/cat/add', p)
   },
   // 删除分类
   deleteCategory (p) {
-    return Vue.$delete('/api/cms/cat/delete/' + p)
+    return Vue.$mypost('/api/cms/cat/delete/' + p)
   },
   // 修改分类
   editCatgory (p) {
-    return Vue.$put('/api/cms/cat/edit/' + p)
+    return Vue.$mypost('/api/cms/cat/edit/' + p.id, p)
   },
   // 新增图书
   addBook (p) {
-    return Vue.$post('/api/cms/book/add', p)
+    return Vue.$mypost('/api/cms/book/add', p)
   },
   // 新增图书详情
   addingBook (p) {
-    return Vue.$post('/api/cms/book/add/desc/' + p)
+    return Vue.$mypost('/api/cms/book/add/desc/' + p)
   },
   // 删除图书
   deleteBook (p) {
-    return Vue.$delete('/api/cms/cat/delete/' + p)
+    return Vue.$mypost('/api/cms/cat/delete/' + p)
   },
   // 修改图书
   editBook (p) {
@@ -46,7 +46,7 @@ export default {
   },
   // 新增评论
   addCommon (p) {
-    return Vue.$post('/api/cms/comment/add/' + p.uid + '/' + p.bid, { tbComment: p.text })
+    return Vue.$mypost('/api/cms/comment/add/' + p.uid + '/' + p.bid, { content: p.text })
   },
   // 获取评论
   getCommon (p) {
@@ -54,6 +54,10 @@ export default {
   },
   // 删除评论
   deleteComment (p) {
-    return Vue.$delete('/api/cms/comment/delete/' + p)
+    return Vue.$mypost('/api/cms/comment/delete/' + p)
+  },
+  // 获取令牌
+  getJwt (p) {
+    return Vue.$get('/api/auth/userjwt', p)
   }
 }

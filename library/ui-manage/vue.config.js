@@ -11,9 +11,14 @@ module.exports = {
     port: 8080,
     open: false,
     proxy: {
-      '/': {
+      '/api': {
         ws: false,
         target: 'http://127.0.0.1:8853/',
+        changeOrigin: true
+      },
+      '/auth/userjwt': {
+        ws: false,
+        target: 'http://127.0.0.1:8819/',
         changeOrigin: true
       }
     }

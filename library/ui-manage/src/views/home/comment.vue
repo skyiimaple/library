@@ -78,6 +78,7 @@ export default {
         onShowSizeChange: (current, size) => {
           this.pagination.current = 1
           this.pagination.pageSize = size
+          this.getCommon()
           console.log('222')
         }
       }
@@ -114,7 +115,8 @@ export default {
     deleting (id) {
       this.$api.deleteComment(id).then(res => {
         if (res.success) {
-          this.$message.sueecee('删除成功')
+          this.$message.success('删除成功')
+          this.getCommon()
         } else {
           this.$message.error(res.message)
         }

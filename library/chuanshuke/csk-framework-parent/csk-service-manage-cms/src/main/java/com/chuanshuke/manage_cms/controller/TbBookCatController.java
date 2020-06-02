@@ -24,13 +24,13 @@ import com.chuanshuke.manage_cms.service.TbBookCatService;
 @RestController
 @RequestMapping("/cms/cat")
 public class TbBookCatController implements CatManageControllerApi {
-	
+
 	@Autowired
 	private TbBookCatService tbBookCatService;
 
 	@Override
 	@GetMapping("/list/{page}/{size}")
-	public QueryResponseResult<TbBookCat> findList(@PathVariable("page") int page, 
+	public QueryResponseResult<TbBookCat> findList(@PathVariable("page") int page,
 			@PathVariable("size")int size) {
 //		Pageable pageable = new PageRequest(page, size);
 		return tbBookCatService.findList(page, size);
@@ -49,21 +49,21 @@ public class TbBookCatController implements CatManageControllerApi {
 		return bookCat;
 	}
 
-	@PutMapping("/edit/{id}")
+	@PostMapping("/edit/{id}")
 	@Override
-	public CmsBookCatResult edit(Long id, TbBookCat tbBookCat) {
-		
+	public CmsBookCatResult edit(@PathVariable  Long id, @RequestBody TbBookCat tbBookCat) {
+
 		return tbBookCatService.update(id, tbBookCat);
 	}
-	
+
 	@Transactional
-	@DeleteMapping("/delete/{id}")
+	@PostMapping("/delete/{id}")
 	@Override
 	public ResponseResult delete(@PathVariable("id")Long id) {
-		
+
 		return tbBookCatService.delete(id);
 	}
-	
+
 	//分类叶子节点查询，用于选择分类
 	@GetMapping("/select")
 	public TbBookCatNode findTbBookCatList() {

@@ -35,7 +35,7 @@ export default {
   methods: {
     goTo (data) {
       console.log('sss', data)
-      this.$router.push({ name: 'bookInfo', query: { id: data.id } })
+      this.$router.push({ name: 'bookInfo', query: { name: data.name } })
     }
   },
   activated () {
