@@ -3,7 +3,7 @@
     <navTop :list="mylist"></navTop>
     <div class="bar">
         <div class="barContent">
-          <a-button type="primary">新增图书</a-button>
+          <a-button type="primary" @click="show=true;valData = valData1">新增图书</a-button>
             <!-- <a-row style="height:40px;text-align:right">
                 <a-col :span="6">
                     <a-col :span="6" style="padding-top:5px;"><span>过滤时间：</span></a-col>
@@ -47,11 +47,49 @@
             {{record.updated?$getTime(text,0,true):''}}
         </template>
         <template slot="opertion" slot-scope="text,record">
-          <a-button style="margin:5px 10px" @click="editing(record.id)">修改</a-button>
-          <a-button type='danger' @click="deleting(record.bid)">删除</a-button>
+          <a-button style="margin:5px 10px" @click="editing(record)">修改</a-button>
+          <a-button type='danger' @click="deleting(record.id)">删除</a-button>
         </template>
         </a-table>
     </div>
+     <a-modal v-model="show" title="图书添加/修改" @ok="commit"  :width="620" :maskClosable="false">
+     <div style="height:45px" class="myflex">
+       <div class="cell">书名：</div>
+       <a-input style="width:200px" v-model="valData.name"></a-input>
+     </div>
+     <div style="height:45px" class="myflex">
+       <div class="cell">作者：</div>
+       <a-input style="width:200px" v-model="valData.author"></a-input>
+     </div>
+     <div style="height:45px" class="myflex">
+       <div class="cell">翻译人：</div>
+       <a-input style="width:200px" v-model="valData.translator"></a-input>
+     </div>
+     <div style="height:45px" class="myflex">
+       <div class="cell">出版社：</div>
+       <a-input style="width:200px" v-model="valData.publisher"></a-input>
+     </div>
+     <div style="height:45px" class="myflex">
+       <div class="cell">可读状态：</div>
+       <a-input style="width:200px" v-model="valData.status"></a-input>
+     </div>
+     <div class="myflex">
+       <div class="cell">封面照片：</div>
+       <a-upload
+        list-type="picture-card"
+        :file-list="fileList"
+        @preview="handlePreview"
+        @change="handleChange"
+      >
+        <div v-if="fileList.length < 8">
+          <a-icon type="plus" />
+          <div class="ant-upload-text">
+            Upload
+          </div>
+        </div>
+      </a-upload>
+     </div>
+    </a-modal>
   </div>
 </template>
 
@@ -65,6 +103,7 @@ export default {
     return {
       tableLoading: true,
       mylist: ['图书管理', '我的图书'],
+      show: false,
       datasource: [
       ],
       columns: [
@@ -77,6 +116,31 @@ export default {
         { title: '加入时间', dataIndex: 'created', width: 150, align: 'center', scopedSlots: { customRender: 'created' } },
         { title: '更新时间', dataIndex: 'updated', width: 150, align: 'center', scopedSlots: { customRender: 'updated' } },
         { title: '操作', dataIndex: 'opertion', width: 150, align: 'center', scopedSlots: { customRender: 'opertion' } }, {}
+      ],
+      valData: {
+        name: '',
+        author: '',
+        translator: '',
+        publisher: '',
+        image: '',
+        status: ''
+      },
+      valData1: {
+        name: '',
+        author: '',
+        translator: '',
+        publisher: '',
+        image: '',
+        status: ''
+      },
+      previewVisible: false,
+      previewImage: '',
+      fileList: [
+        {
+          uid: '-5',
+          name: 'image.png',
+          status: 'error'
+        }
       ],
       loading: true,
       pagination: {
@@ -102,6 +166,19 @@ export default {
     }
   },
   methods: {
+    handleCancel () {
+      this.previewVisible = false
+    },
+    async handlePreview (file) {
+      // if (!file.url && !file.preview) {
+      //   file.preview = await getBase64(file.originFileObj)
+      // }
+      this.previewImage = file.url || file.preview
+      this.previewVisible = true
+    },
+    handleChange ({ fileList }) {
+      this.fileList = fileList
+    },
     getBookManage () {
       let data = {
         page: this.pagination.current,
@@ -116,8 +193,19 @@ export default {
         }
       })
     },
-    editing (id) {
-
+    commit () {
+      this.$api.addBook(this.valData).then(res => {
+        if (res.success) {
+          this.$message.sueecee('新增成功')
+          this.getBookManage()
+        } else {
+          this.$message.error('新增失败')
+        }
+      })
+    },
+    editing (val) {
+      this.show = true
+      this.valData = val
     },
     deleting (id) {
       console.log('sss11111')
@@ -125,6 +213,7 @@ export default {
         console.log('ssslllllll')
         if (res.success) {
           this.$message.sueecee('删除成功')
+          this.getBookManage()
         } else {
           this.$message.error(res.message)
         }
@@ -137,7 +226,7 @@ export default {
 }
 </script>
 
-<style >
+<style  scoped>
 .bar{
     padding: 10px 0;
 }
@@ -162,5 +251,13 @@ export default {
   width: 100%;
   height: 100%;
   left: 0;
+}
+.myflex{
+  display: flex;
+  align-items: center;
+}
+.cell{
+  width:80px;
+  text-align: right;
 }
 </style>

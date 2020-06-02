@@ -37,5 +37,9 @@ export default {
   // 获取评论
   getCommon (p) {
     return Vue.$get('/api/cms/comment/list/' + p)
+  },
+  // 热门推荐
+  getRecommendList (p) {
+    return Vue.$get('/api/portal/recommend/hot')
   }
 }
