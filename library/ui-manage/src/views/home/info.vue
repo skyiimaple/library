@@ -194,7 +194,14 @@ export default {
       })
     },
     commit () {
-
+      this.$api.addBook(this.valData).then(res => {
+        if (res.success) {
+          this.$message.sueecee('新增成功')
+          this.getBookManage()
+        } else {
+          this.$message.error('新增失败')
+        }
+      })
     },
     editing (val) {
       this.show = true
@@ -206,6 +213,7 @@ export default {
         console.log('ssslllllll')
         if (res.success) {
           this.$message.sueecee('删除成功')
+          this.getBookManage()
         } else {
           this.$message.error(res.message)
         }
