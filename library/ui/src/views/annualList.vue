@@ -86,7 +86,15 @@ export default {
     },
     onChange2 (e) {
       console.log(`checked = ${e.target.value}`)
+    },
+    getRecommendList () {
+      this.$api.getRecommendList().then(res => {
+        console.log('eeeee', res)
+      })
     }
+  },
+  mounted () {
+    this.getRecommendList()
   }
 }
 </script>

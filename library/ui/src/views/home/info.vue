@@ -45,7 +45,17 @@
 
 <script>
 export default {
-  name: 'info'
+  name: 'info',
+  methods: {
+    getRecommendList () {
+      this.$api.getRecommendList().then(res => {
+        console.log('eeeee', res)
+      })
+    }
+  },
+  mounted () {
+    this.getRecommendList()
+  }
 }
 </script>
 
