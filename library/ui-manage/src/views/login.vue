@@ -25,7 +25,9 @@
     </div>
   </div>
 </template>
+
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'login',
   data () {
@@ -37,11 +39,18 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setJwt']),
     login () {
       this.$api.login(this.userinfo).then(res => {
         if (res.success) {
           this.$message.success('登录成功')
           this.$router.push({ name: 'info' })
+          this.$api.getJwt().then(res => {
+            console.log('res', res)
+            if (res.success) {
+              this.setJwt(res.jwt)
+            }
+          })
         } else {
           this.$message.error(res.message)
         }

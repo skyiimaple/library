@@ -119,8 +119,7 @@ export default {
     getBookManage () {
       let data = {
         page: 1,
-        size: 10,
-        bid: ''
+        size: 10
       }
       if (this.type1 !== 1) {
         data.bid = this.type1
@@ -162,7 +161,7 @@ export default {
       })
     },
     goTo (data) {
-      this.$router.push({ name: 'bookInfo', params: { data: data }, query: { id: data.id } })
+      this.$router.push({ name: 'bookInfo', params: { data: data }, query: { id: data.id, name: data.name } })
     }
   },
   mounted () {

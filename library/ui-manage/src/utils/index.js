@@ -65,6 +65,19 @@ fetch.install = (Vue, options) => {
         })
     })
   }
+  Vue.$mypost = (url, params) => {
+    return new Promise((resolve, reject) => {
+      axios.post(url, JSON.stringify(params), { headers: { 'Content-Type': 'application/json',
+        dataType: 'json',
+        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('vuex'))['jwt']
+      } })
+        .then(response => {
+          resolve(response.data)
+        }).catch((error) => {
+          reject(error)
+        })
+    })
+  }
   // get请求(Request Payload)
   Vue.$get = (url, params = {}) => {
     return new Promise((resolve, reject) => {
@@ -105,7 +118,9 @@ fetch.install = (Vue, options) => {
   // delete请求(From Data)
   Vue.$delete = (url, params) => {
     return new Promise((resolve, reject) => {
-      axios.delete(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+      axios.delete(url, QS.stringify(params), { headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('vuex'))['jwt']
+      } })
         .then(response => {
           resolve(response.data)
         }).catch((error) => {

@@ -1,29 +1,27 @@
 <template>
 <div class="bookInfo">
-    <div style="font-size:34px;padding:10px">{{infos1.name}}</div>
+    <div style="font-size:34px;padding:10px">{{info.name}}</div>
     <div class="myflex">
-        <div><img :src="infos1.image" alt="" width="270px" height="398px" :title="infos1.name"></div>
+        <div><img :src="info.image" alt="" width="270px" height="398px" :title="info.name"></div>
         <div style="padding-left:30px">
-            <div style="line-hight:2;padding:5px">作者：{{infos1.author!=='null'?infos1.author:'未知'}}</div>
-            <div style="line-hight:2;padding:5px">出版社：{{infos1.publisher!=='null'?infos1.publisher:'未知'}}</div>
-            <div style="line-hight:2;padding:5px">翻译人：{{infos1.translator!=='null'?infos1.translator:'未知'}}</div>
-            <div style="line-hight:2;padding:5px">上架时间：{{infos1.created!=='null'?getTime(infos1.created,0,true):'未知'}}</div>
-            <div style="line-hight:2;padding:5px">更新时间：{{infos1.updated!=='null'?getTime(infos1.updated,0,true):'未知'}}</div>
+            <div style="line-hight:2;padding:5px">作者：{{info.author!=='null'?info.author:'未知'}}</div>
+            <div style="line-hight:2;padding:5px">出版社：{{info.publisher!=='null'?info.publisher:'未知'}}</div>
+            <div style="line-hight:2;padding:5px">翻译人：{{info.translator!=='null'?info.translator:'未知'}}</div>
         </div>
     </div>
     <div style="color:skyblue;font-size:22px;padding:10px">内容简介·····</div>
     <div>
-       <p> {{infos2.contentDesc}}</p>
+       <p> {{info.contentDesc}}</p>
     </div>
     <div style="color:skyblue;font-size:22px;padding:10px">作者简介·····</div>
     <div>
-       <p> {{infos2.authorProfile}}</p>
+       <p> {{info.authorProfile}}</p>
     </div>
     <div style="color:skyblue;font-size:22px;padding:10px">目录·····</div>
     <div>
-       <p v-html="infos2.catalogue"></p>
+       <p v-html="info.catalogue"></p>
     </div>
-    <div style="color:skyblue;font-size:22px;padding:10px">{{infos1.name}}的书评·····(共{{common.total}}条)</div>
+    <div style="color:skyblue;font-size:22px;padding:10px">{{info.name}}的书评·····(共{{common.total}}条)</div>
     <div v-if="common.total">
        <div v-for="(item,index) in common.list" :key="index" style="border-bottom:1px solid #ccc;margin:5px 0">
          <div style="font-size:20px"> {{index+1}}楼  {{item.name}}: </div>
@@ -45,26 +43,31 @@ export default {
   name: 'bookInfo',
   data () {
     return {
-      infos1: {},
-      infos2: {},
+      info: {},
       common: [],
       show: false
     }
   },
   methods: {
     getInfoById () {
-      console.log('rrrrrrrr')
-      this.$api.getInfoById(this.$route.query.id).then(res => {
-        this.infos2 = res
-      })
-      this.$api.getInfoById2(this.$route.query.id).then(res => {
-        this.infos1 = res
-        console.log('sss', this.infos1)
-      })
+      // if (this.$route.query.id) {
+      //   this.$api.getInfoById(this.$route.query.id).then(res => {
+      //     this.infos2 = res
+      //   })
+      //   this.$api.getInfoById2(this.$route.query.id).then(res => {
+      //     this.infos1 = res
+      //     console.log('sss', this.infos1)
+      //   })
       this.$api.getCommon(this.$route.query.id).then(res => {
         this.common = res.queryResult
         console.log('common', this.common)
       })
+      // } else {
+      this.$api.getInfoByName(this.$route.query.name).then(res => {
+        this.info = res.bookInfo
+        console.log('lllll', res)
+      })
+      // }
     },
     getTime (date, offset = 0, type = false) {
       var tdate = new Date(date)

@@ -20,10 +20,10 @@ import com.chuanshuke.manage_cms.service.TbCommentService;
 @RestController
 @RequestMapping("/cms/comment")
 public class TbCommentController implements CommentManageControllerApi {
-	
+
 	@Autowired
 	private TbCommentService tbCommentService;
-	
+
 	@PostMapping("/add/{uid}/{bid}")
 	@Override
 	public CmsCommentResult add(@PathVariable Long uid, @PathVariable Long bid, @RequestBody TbComment tbComment) {
@@ -36,15 +36,15 @@ public class TbCommentController implements CommentManageControllerApi {
 		return tbCommentService.getCommentById(id);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@PostMapping("/delete/{id}")
 	@Override
-	public ResponseResult delete(Long id) {
+	public ResponseResult delete(@PathVariable Long id) {
 		return tbCommentService.delete(id);
 	}
 
 	@GetMapping("/list/{page}/{size}")
 	@Override
-	public QueryResponseResult<TbComment> list(@PathVariable("page")int page, 
+	public QueryResponseResult<TbComment> list(@PathVariable("page")int page,
 			@PathVariable("size")int size) {
 		return tbCommentService.list(page, size);
 	}

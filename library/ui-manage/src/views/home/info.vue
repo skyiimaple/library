@@ -48,7 +48,7 @@
         </template>
         <template slot="opertion" slot-scope="text,record">
           <a-button style="margin:5px 10px" @click="editing(record.id)">修改</a-button>
-          <a-button type='danger' @click="deleting(record.id)">删除</a-button>
+          <a-button type='danger' @click="deleting(record.bid)">删除</a-button>
         </template>
         </a-table>
     </div>
@@ -95,6 +95,7 @@ export default {
         onShowSizeChange: (current, size) => {
           this.pagination.current = 1
           this.pagination.pageSize = size
+          this.getBookManage()
           console.log('222')
         }
       }
