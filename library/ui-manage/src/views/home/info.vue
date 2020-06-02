@@ -41,14 +41,14 @@
             {{record.status===1?'可读':'不可读'}}
         </template>
         <template slot="created" slot-scope="text,record">
-            {{record.created?$getTime(record.status,0,true):''}}
+            {{record.created?$getTime(text,0,true):''}}
         </template>
         <template slot="updated" slot-scope="text,record">
-            {{record.updated?$getTime(record.status,0,true):''}}
+            {{record.updated?$getTime(text,0,true):''}}
         </template>
         <template slot="opertion" slot-scope="text,record">
-          <a-button style="margin:5px 10px" @click="edit(record.id)">修改</a-button>
-          <a-button type='danger' @click="delete(record.id)">删除</a-button>
+          <a-button style="margin:5px 10px" @click="editing(record.id)">修改</a-button>
+          <a-button type='danger' @click="deleting(record.id)">删除</a-button>
         </template>
         </a-table>
     </div>
@@ -115,13 +115,17 @@ export default {
         }
       })
     },
-    edit (id) {
+    editing (id) {
 
     },
-    delete (id) {
+    deleting (id) {
+      console.log('sss11111')
       this.$api.deleteBook(id).then(res => {
+        console.log('ssslllllll')
         if (res.success) {
           this.$message.sueecee('删除成功')
+        } else {
+          this.$message.error(res.message)
         }
       })
     }

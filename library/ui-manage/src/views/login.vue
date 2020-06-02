@@ -44,7 +44,6 @@ export default {
           this.$router.push({ name: 'info' })
         } else {
           this.$message.error(res.message)
-          this.$router.push({ name: 'info' })
         }
       })
     }

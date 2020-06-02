@@ -3,26 +3,32 @@
    <navTop :list="mylist"></navTop>
     <div class="bar">
         <div class="barContent">
-          <a-button type="primary">新增分类</a-button>
+          <a-button type="primary" @click="show(0)">新增分类</a-button>
         </div>
     </div>
     <div class="table">
         <a-table :loading="tableLoading"  :pagination="pagination" :columns="columns"  :dataSource="datasource" bordered style="height:664px" :scroll="{ y: 460 }">
           <template slot="opertion" slot-scope="text,record">
-            <a-button style="margin:5px 10px" @click="edit(record.id)">修改</a-button>
-            <a-button type='danger' @click="delete(record.id)">删除</a-button>
+            <a-button style="margin:5px 10px" @click="show(record)">修改</a-button>
+            <a-button type='danger' @click="deleting(record.id)">删除</a-button>
           </template>
         <template slot="status" slot-scope="text,record">
             {{record.status===1?'可读':'不可读'}}
         </template>
         <template slot="created" slot-scope="text,record">
-            {{record.created?$getTime(record.status,0,true):''}}
+            {{record.created?$getTime(text,0,true):''}}
         </template>
         <template slot="updated" slot-scope="text,record">
-            {{record.updated?$getTime(record.status,0,true):''}}
+            {{record.updated?$getTime(text,0,true):''}}
         </template>
         </a-table>
     </div>
+    <a-modal v-model="visible" title="分类添加/修改" :okText="status==='add'?'增加':'修改'" @ok="commit"  :width="620" :maskClosable="false">
+     <div style="height:45px">
+       <span >分类名：</span>
+       <a-input style="width:200px" v-model="category" type="text"></a-input>
+     </div>
+    </a-modal>
   </div>
 </template>
 
@@ -35,6 +41,9 @@ export default {
   data () {
     return {
       mylist: ['图书分类', '我的分类'],
+      category: '',
+      visible: false,
+      status: '',
       datasource: [
       ],
       columns: [
@@ -81,13 +90,34 @@ export default {
         }
       })
     },
-    edit (id) {
-
+    show (val) {
+      this.visible = true
+      if (val !== 0) {
+        this.category = val.name
+        this.status = 'edit'
+      } else {
+        this.category = ''
+        this.status = 'add'
+      }
     },
-    delete (id) {
+    commit () {
+      let ways = this.status === 'add' ? 'addCategory' : 'editCatgory'
+      this.$api[ways](this.category).then(res => {
+        if (res.success) {
+          this.$message.sueecee('操作成功')
+          this.getCatgoryManage()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    deleting (id) {
       this.$api.deleteCategory(id).then(res => {
         if (res.success) {
           this.$message.sueecee('删除成功')
+          this.getCatgoryManage()
+        } else {
+          this.$message.error(res.message)
         }
       })
     }

@@ -3,20 +3,37 @@
    <navTop :list="mylist"></navTop>
     <div class="bar">
         <div class="barContent">
-          <a-button type="primary">新增评论</a-button>
+          <a-button type="primary" @click="adding">新增评论</a-button>
         </div>
     </div>
     <div class="table">
         <a-table :loading="tableLoading"  :pagination="pagination" :columns="columns"  :dataSource="datasource" bordered style="height:664px" :scroll="{ y: 460 }">
           <template slot="opertion" slot-scope="text,record">
-            <a-button style="margin:5px 10px" @click="edit(record.id)">修改</a-button>
-            <a-button type='danger' @click="delete(record.id)">删除</a-button>
+            <a-button type='danger' @click="deleting(record.id)">删除</a-button>
           </template>
         <template slot="updated" slot-scope="text,record">
-            {{record.updated?$getTime(record.status,0,true):''}}
+            {{record.updated?$getTime(text,0,true):''}}
         </template>
         </a-table>
     </div>
+     <a-modal v-model="visible" title="评论添加" @ok="commit"  :width="620" :maskClosable="false">
+     <div style="height:45px">
+       <span >图书：</span>
+       <a-input style="width:200px" v-model="rendData.bid" type="number"></a-input>
+     </div>
+     <div style="height:45px">
+       <span>用户：</span>
+       <a-input style="width:200px" v-model="rendData.uid" type="number"></a-input>
+     </div>
+     <!-- <div style="height:45px">
+       <span>评分：</span>
+       <a-input style="width:200px"></a-input>
+     </div> -->
+     <div style="height:45px">
+       <span>内容：</span>
+       <a-input style="width:400px" v-model="rendData.text"></a-input>
+     </div>
+    </a-modal>
   </div>
 </template>
 
@@ -29,6 +46,12 @@ export default {
   data () {
     return {
       mylist: ['评论管理', '我的评论'],
+      rendData: {
+        uid: '',
+        bid: '',
+        text: ''
+      },
+      visible: false,
       datasource: [
       ],
       columns: [
@@ -50,7 +73,7 @@ export default {
         },
         onChange: (page, pageSize) => {
           this.pagination.current = page
-          this.getCatgoryManage()
+          this.getCommon()
         },
         onShowSizeChange: (current, size) => {
           this.pagination.current = 1
@@ -75,13 +98,25 @@ export default {
         }
       })
     },
-    edit (id) {
-
+    commit () {
+      this.$api.addCommon(this.rendData).then(res => {
+        if (res.success) {
+          this.$message.success('添加成功')
+          this.getCommon()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     },
-    delete (id) {
+    adding () {
+      this.visible = true
+    },
+    deleting (id) {
       this.$api.deleteComment(id).then(res => {
         if (res.success) {
           this.$message.sueecee('删除成功')
+        } else {
+          this.$message.error(res.message)
         }
       })
     }
