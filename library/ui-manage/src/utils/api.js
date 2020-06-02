@@ -46,7 +46,7 @@ export default {
   },
   // 新增评论
   addCommon (p) {
-    return Vue.$post('/api/cms/comment/add/' + p.uid + '/' + p.bid)
+    return Vue.$post('/api/cms/comment/add/' + p.uid + '/' + p.bid, { tbComment: p.text })
   },
   // 获取评论
   getCommon (p) {

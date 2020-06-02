@@ -1,7 +1,7 @@
 <template>
   <div class="navTop">
       <div class="leftOper">
-        <a-button type="primary" icon="left" size="large" v-if="list">返回</a-button>
+        <!-- <a-button type="primary" icon="left" size="large" v-if="list">返回</a-button> -->
         <div style="padding:0 20px">
             <a-breadcrumb>
                 <a-breadcrumb-item> <a-icon type="home" style="font-size:20px"/></a-breadcrumb-item>
